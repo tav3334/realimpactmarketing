@@ -42,10 +42,18 @@ function renderProcessSteps() {
     if (!container) return;
 
     container.innerHTML = processSteps.map((step, i) => `
-        <div class="process-step" data-aos="fade-up" data-aos-delay="${i * 80}">
-            <div class="step-number" aria-hidden="true">${step.number}</div>
-            <h3>${step.title}</h3>
-            <p>${step.description}</p>
+        <div class="process-step" data-aos="fade-up" data-aos-delay="${i * 100}">
+            <div class="step-header">
+                <div class="step-number" aria-hidden="true">
+                    <span class="step-icon">${step.icon || ''}</span>
+                    <span class="step-num">${step.number}</span>
+                </div>
+                ${i < processSteps.length - 1 ? '<div class="step-connector"><div class="step-connector-fill"></div></div>' : ''}
+            </div>
+            <div class="step-content">
+                <h3>${step.title}</h3>
+                <p>${step.description}</p>
+            </div>
         </div>
     `).join('');
 }
