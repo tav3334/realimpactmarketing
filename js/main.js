@@ -91,6 +91,40 @@ function initializeMobileMenu() {
 initializeMobileMenu();
 
 // ==========================================
+// CONTACT DROPDOWN
+// ==========================================
+function initializeContactDropdown() {
+    const btn = document.getElementById('contactDropdownBtn');
+    const dropdown = document.getElementById('contactDropdown');
+
+    if (!btn || !dropdown) return;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.toggle('active');
+        btn.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-contact-dropdown')) {
+            dropdown.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            dropdown.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+initializeContactDropdown();
+
+// ==========================================
 // SMOOTH SCROLL FOR NAVIGATION LINKS
 // ==========================================
 function initializeSmoothScroll() {
