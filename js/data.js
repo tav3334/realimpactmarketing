@@ -166,6 +166,40 @@ const instagramAccounts = [
     }
 ];
 
+// Instagram Posts Preview Data
+const instagramPosts = [
+    {
+        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=400&fit=crop&q=80',
+        likes: '124',
+        caption: 'Stratégie digitale'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=400&h=400&fit=crop&q=80',
+        likes: '98',
+        caption: 'Design créatif'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop&q=80',
+        likes: '156',
+        caption: 'Analytics & Data'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=400&fit=crop&q=80',
+        likes: '87',
+        caption: 'Brainstorming'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=400&h=400&fit=crop&q=80',
+        likes: '203',
+        caption: 'Résultats clients'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=400&fit=crop&q=80',
+        likes: '142',
+        caption: 'Web development'
+    }
+];
+
 // Testimonials Data
 const testimonialsData = [
     {

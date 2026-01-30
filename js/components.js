@@ -50,20 +50,21 @@ function renderProcessSteps() {
     `).join('');
 }
 
-// Render Instagram Accounts
-function renderInstagramAccounts() {
-    const container = document.getElementById('instagramAccounts');
-    if (!container) return;
+// Render Instagram Posts Grid
+function renderInstagramPosts() {
+    const grid = document.getElementById('igPostsGrid');
+    if (!grid || typeof instagramPosts === 'undefined') return;
 
-    container.innerHTML = instagramAccounts.map((account, i) => `
-        <div class="instagram-card" data-aos="fade-up" data-aos-delay="${i * 150}">
-            <div class="instagram-icon" aria-hidden="true">${account.icon}</div>
-            <h3>${account.handle}</h3>
-            <p>${account.description}</p>
-            <a href="${account.url}" target="_blank" rel="noopener noreferrer" class="instagram-link">
-                Suivre sur Instagram
-            </a>
-        </div>
+    grid.innerHTML = instagramPosts.map((post, i) => `
+        <a href="https://www.instagram.com/real_impact_marketing" target="_blank" rel="noopener noreferrer" class="ig-post" style="animation-delay: ${i * 80}ms">
+            <img src="${post.image}" alt="${post.caption}" loading="lazy" decoding="async">
+            <div class="ig-post-overlay">
+                <span class="ig-post-likes">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    ${post.likes}
+                </span>
+            </div>
+        </a>
     `).join('');
 }
 
@@ -108,7 +109,7 @@ function initializeComponents() {
     renderServices();
     renderPortfolio();
     renderProcessSteps();
-    renderInstagramAccounts();
+    renderInstagramPosts();
     renderTestimonials();
     renderContactDetails();
 }
