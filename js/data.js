@@ -90,33 +90,39 @@ const servicesData = [
 // Portfolio Data
 const portfolioData = [
     {
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+        image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&q=80',
         title: 'E-commerce Fashion',
+        category: 'Développement Web',
         description: 'Site e-commerce complet avec gestion des stocks et paiements sécurisés'
     },
     {
-        image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop',
+        image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop&q=80',
         title: 'Campagne Social Media',
+        category: 'Marketing Digital',
         description: 'Stratégie Instagram qui a généré +300% d\'engagement en 3 mois'
     },
     {
-        image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop',
+        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&q=80',
         title: 'Application Mobile',
+        category: 'Développement',
         description: 'App de réservation intuitive avec plus de 10K téléchargements'
     },
     {
-        image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop',
+        image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&h=600&fit=crop&q=80',
         title: 'Branding Startup Tech',
+        category: 'Design & Branding',
         description: 'Identité visuelle complète pour une startup innovante'
     },
     {
-        image: 'https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=800&h=600&fit=crop',
+        image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&h=600&fit=crop&q=80',
         title: 'SEO Restaurant',
+        category: 'SEO',
         description: 'Optimisation SEO locale: +450% de visibilité en 6 mois'
     },
     {
-        image: 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800&h=600&fit=crop',
+        image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop&q=80',
         title: 'Plateforme E-learning',
+        category: 'Développement Web',
         description: 'Système de formation en ligne avec tableau de bord avancé'
     }
 ];

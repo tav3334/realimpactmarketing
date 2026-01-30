@@ -28,6 +28,7 @@ function renderPortfolio() {
         <article class="portfolio-item" data-aos="fade-up" data-aos-delay="${i * 80}">
             <img src="${project.image}" alt="${project.title}" class="portfolio-image" loading="lazy" decoding="async">
             <div class="portfolio-overlay">
+                ${project.category ? `<span class="portfolio-category">${project.category}</span>` : ''}
                 <h3>${project.title}</h3>
                 <p>${project.description}</p>
             </div>
