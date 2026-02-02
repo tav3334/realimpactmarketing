@@ -153,6 +153,10 @@ initializeSmoothScroll();
 // CONTACT FORM SUBMISSION
 // ==========================================
 function initializeContactForm() {
+    // Initialiser EmailJS avec votre Public Key
+    // REMPLACEZ 'YOUR_PUBLIC_KEY' par votre clé publique EmailJS
+    emailjs.init('YBqL1p9INGpUCXx8n');
+
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
 
@@ -170,13 +174,30 @@ function initializeContactForm() {
 
         // Animate submit button
         const btn = contactForm.querySelector('.submit-btn');
+        const originalText = btn.textContent;
         btn.style.transform = 'scale(0.95)';
-        setTimeout(() => { btn.style.transform = ''; }, 200);
+        btn.textContent = 'Envoi en cours...';
+        btn.disabled = true;
 
-        showNotification('Merci pour votre message ! Nous vous contacterons sous 24h.', 'success');
-        contactForm.reset();
-
-        console.log('Form submitted:', data);
+        // Envoyer l'email via EmailJS
+        // REMPLACEZ 'YOUR_SERVICE_ID' et 'YOUR_TEMPLATE_ID' par vos identifiants
+        emailjs.send('service_mx7eqy7', 'template_m3ghdzr', {
+            from_name: data.name,
+            from_email: data.email,
+            phone: data.phone || 'Non renseigné',
+            service: data.service || 'Non spécifié',
+            message: data.message
+        }).then(() => {
+            showNotification('Merci pour votre message ! Nous vous contacterons sous 24h.', 'success');
+            contactForm.reset();
+        }).catch((error) => {
+            console.error('EmailJS error:', error);
+            showNotification('Erreur lors de l\'envoi. Veuillez réessayer.', 'error');
+        }).finally(() => {
+            btn.style.transform = '';
+            btn.textContent = originalText;
+            btn.disabled = false;
+        });
     });
 }
 
