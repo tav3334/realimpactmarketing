@@ -91,40 +91,64 @@ const servicesData = [
 // Portfolio Data
 const portfolioData = [
     {
-        image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&q=80',
+        image: 'assets/images/portfolio-1.jpeg',
         title: 'E-commerce Fashion',
         category: 'Développement Web',
         description: 'Site e-commerce complet avec gestion des stocks et paiements sécurisés'
     },
     {
-        image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop&q=80',
+        image: 'assets/images/portfolio-2.jpeg',
         title: 'Campagne Social Media',
         category: 'Marketing Digital',
         description: 'Stratégie Instagram qui a généré +300% d\'engagement en 3 mois'
     },
     {
-        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&q=80',
+        image: 'assets/images/portfolio-3.jpeg',
         title: 'Application Mobile',
         category: 'Développement',
         description: 'App de réservation intuitive avec plus de 10K téléchargements'
     },
     {
-        image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&h=600&fit=crop&q=80',
+        image: 'assets/images/portfolio-4.jpeg',
         title: 'Branding Startup Tech',
         category: 'Design & Branding',
         description: 'Identité visuelle complète pour une startup innovante'
     },
     {
-        image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&h=600&fit=crop&q=80',
+        image: 'assets/images/portfolio-5.jpeg',
         title: 'SEO Restaurant',
         category: 'SEO',
         description: 'Optimisation SEO locale: +450% de visibilité en 6 mois'
     },
     {
-        image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop&q=80',
+        image: 'assets/images/portfolio-6.jpeg',
         title: 'Plateforme E-learning',
         category: 'Développement Web',
         description: 'Système de formation en ligne avec tableau de bord avancé'
+    },
+    {
+        video: 'assets/videos/ghost-motion.mp4',
+        title: 'Ghost Restaurant - Motion Design',
+        category: 'Création de Vidéo',
+        description: 'Motion design promotionnel pour Ghost, restaurant en ligne innovant'
+    },
+    {
+        video: 'assets/videos/ghost-romantique.mp4',
+        title: 'Ghost - Ambiance Romantique',
+        category: 'Audiovisuel',
+        description: 'Vidéo d\'ambiance romantique pour la campagne Valentine de Ghost'
+    },
+    {
+        video: 'assets/videos/galien.mp4',
+        title: 'Galien - Production Vidéo',
+        category: 'Audiovisuel',
+        description: 'Production audiovisuelle complète pour le projet Galien'
+    },
+    {
+        video: 'assets/videos/content-studio.mp4',
+        title: 'Content Studio - Contenu Social',
+        category: 'Marketing Digital',
+        description: 'Contenu vidéo optimisé pour les réseaux sociaux'
     }
 ];
 
@@ -175,32 +199,32 @@ const instagramAccounts = [
 // Instagram Posts Preview Data
 const instagramPosts = [
     {
-        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=400&fit=crop&q=80',
+        image: 'assets/images/insta-1.jpeg',
         likes: '124',
         caption: 'Stratégie digitale'
     },
     {
-        image: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=400&h=400&fit=crop&q=80',
+        image: 'assets/images/insta-2.jpeg',
         likes: '98',
         caption: 'Design créatif'
     },
     {
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop&q=80',
+        image: 'assets/images/insta-3.jpeg',
         likes: '156',
         caption: 'Analytics & Data'
     },
     {
-        image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=400&fit=crop&q=80',
+        image: 'assets/images/insta-4.jpeg',
         likes: '87',
         caption: 'Brainstorming'
     },
     {
-        image: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=400&h=400&fit=crop&q=80',
+        image: 'assets/images/insta-5.jpg',
         likes: '203',
         caption: 'Résultats clients'
     },
     {
-        image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=400&fit=crop&q=80',
+        image: 'assets/images/insta-6.jpg',
         likes: '142',
         caption: 'Web development'
     }

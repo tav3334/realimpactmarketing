@@ -26,7 +26,10 @@ function renderPortfolio() {
 
     grid.innerHTML = portfolioData.map((project, i) => `
         <article class="portfolio-item" data-aos="fade-up" data-aos-delay="${i * 80}">
-            <img src="${project.image}" alt="${project.title}" class="portfolio-image" loading="lazy" decoding="async">
+            ${project.video
+                ? `<video src="${project.video}" class="portfolio-image" muted loop playsinline preload="metadata"></video>`
+                : `<img src="${project.image}" alt="${project.title}" class="portfolio-image" loading="lazy" decoding="async">`
+            }
             <div class="portfolio-overlay">
                 ${project.category ? `<span class="portfolio-category">${project.category}</span>` : ''}
                 <h3>${project.title}</h3>
@@ -34,6 +37,14 @@ function renderPortfolio() {
             </div>
         </article>
     `).join('');
+
+    // Auto-play videos on hover
+    grid.querySelectorAll('.portfolio-item').forEach(item => {
+        const video = item.querySelector('video');
+        if (!video) return;
+        item.addEventListener('mouseenter', () => video.play());
+        item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    });
 }
 
 // Render Process Steps
