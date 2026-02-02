@@ -160,8 +160,19 @@ function initializeContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
 
+    // Rate limiting - 1 envoi toutes les 30 secondes
+    let lastSubmitTime = 0;
+    const SUBMIT_COOLDOWN = 30000;
+
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const now = Date.now();
+        if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
+            const remaining = Math.ceil((SUBMIT_COOLDOWN - (now - lastSubmitTime)) / 1000);
+            showNotification(`Veuillez patienter ${remaining}s avant de renvoyer un message.`, 'error');
+            return;
+        }
 
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData.entries());
@@ -188,6 +199,7 @@ function initializeContactForm() {
             service: data.service || 'Non spécifié',
             message: data.message
         }).then(() => {
+            lastSubmitTime = Date.now();
             showNotification('Merci pour votre message ! Nous vous contacterons sous 24h.', 'success');
             contactForm.reset();
         }).catch((error) => {

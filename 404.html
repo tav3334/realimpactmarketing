@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page introuvable | Real Impact Marketing</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300C896'%3E%3Cellipse cx='50' cy='20' rx='8' ry='20' transform='rotate(0 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='8' ry='20' transform='rotate(60 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='8' ry='20' transform='rotate(120 50 50)'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0a0e13;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .container { max-width: 500px; }
+        .error-code {
+            font-size: clamp(5rem, 15vw, 10rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #00C896, #00A077);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1rem 0 0.5rem;
+        }
+        p {
+            color: #888;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            background: linear-gradient(135deg, #00C896, #00A077);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 200, 150, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1>Page introuvable</h1>
+        <p>La page que vous cherchez n'existe pas ou a été déplacée.</p>
+        <a href="/" class="btn">Retour à l'accueil</a>
+    </div>
+</body>
+</html>

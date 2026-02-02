@@ -2367,3 +2367,33 @@ a:focus-visible {
         scroll-behavior: auto;
     }
 }
+
+/* ==========================================
+   SKELETON LOADING
+   ========================================== */
+.portfolio-skeleton {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-secondary, #1a1f25);
+    border-radius: inherit;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.portfolio-skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.04) 50%,
+        transparent 100%
+    );
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}

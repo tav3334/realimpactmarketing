@@ -26,9 +26,10 @@ function renderPortfolio() {
 
     grid.innerHTML = portfolioData.map((project, i) => `
         <article class="portfolio-item" data-aos="fade-up" data-aos-delay="${i * 80}">
+            <div class="portfolio-skeleton"></div>
             ${project.video
-                ? `<video src="${project.video}" class="portfolio-image" muted loop playsinline preload="metadata"></video>`
-                : `<img src="${project.image}" alt="${project.title}" class="portfolio-image" loading="lazy" decoding="async">`
+                ? `<video src="${project.video}" class="portfolio-image" muted loop playsinline preload="metadata" onloadeddata="this.previousElementSibling.remove()"></video>`
+                : `<img src="${project.image}" alt="${project.title}" class="portfolio-image" loading="lazy" decoding="async" onload="this.previousElementSibling.remove()">`
             }
             <div class="portfolio-overlay">
                 ${project.category ? `<span class="portfolio-category">${project.category}</span>` : ''}
