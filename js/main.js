@@ -2,6 +2,19 @@
 // REAL IMPACT MARKETING - MAIN JS (Modern)
 // ==========================================
 
+// ==========================================
+// PRELOADER
+// ==========================================
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+    // Attendre la fin de l'animation de la barre (1.8s) puis fade out
+    setTimeout(() => {
+        preloader.classList.add('fade-out');
+        preloader.addEventListener('transitionend', () => preloader.remove());
+    }, 2000);
+});
+
 // Initialize AOS (Animate On Scroll)
 document.addEventListener('DOMContentLoaded', () => {
     AOS.init({
