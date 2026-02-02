@@ -25,11 +25,14 @@ function renderServices() {
     `).join('');
 }
 
-// Render Portfolio with filter tabs & bento layout
+// Render Portfolio with fan card layout
 function renderPortfolio() {
-    const grid = document.getElementById('portfolioGrid');
+    const fan = document.getElementById('portfolioFan');
     const filtersContainer = document.getElementById('portfolioFilters');
-    if (!grid) return;
+    if (!fan) return;
+
+    let filteredData = [...portfolioData];
+    let currentIndex = Math.floor(filteredData.length / 2);
 
     // Extract unique categories
     const categories = ['Tous', ...new Set(portfolioData.map(p => p.category).filter(Boolean))];
@@ -48,53 +51,144 @@ function renderPortfolio() {
             btn.classList.add('active');
 
             const filter = btn.dataset.filter;
-            const items = grid.querySelectorAll('.portfolio-item');
+            filteredData = filter === 'Tous'
+                ? [...portfolioData]
+                : portfolioData.filter(p => p.category === filter);
 
-            items.forEach((item, i) => {
-                const cat = item.dataset.category;
-                const shouldShow = filter === 'Tous' || cat === filter;
-
-                if (!shouldShow) {
-                    item.classList.add('hiding');
-                    item.classList.remove('showing');
-                } else {
-                    item.classList.remove('hiding');
-                    item.classList.add('showing');
-                    item.style.animationDelay = `${i * 60}ms`;
-                }
-            });
+            currentIndex = Math.floor(filteredData.length / 2);
+            renderFanCards();
         });
     }
 
-    // Bento layout: first item featured (wide), 4th item tall
-    const bentoClasses = (i) => {
-        if (i === 0) return 'featured';
-        if (i === 3) return 'tall';
-        return '';
-    };
+    function renderFanCards() {
+        const total = filteredData.length;
+        const visibleCount = Math.min(total, 7);
+        const half = Math.floor(visibleCount / 2);
 
-    grid.innerHTML = portfolioData.map((project, i) => `
-        <article class="portfolio-item ${bentoClasses(i)} showing" data-category="${project.category || ''}" data-aos="fade-up" data-aos-delay="${i * 60}">
-            <div class="portfolio-skeleton"></div>
-            ${project.video
-                ? `<video src="${project.video}" class="portfolio-image" muted loop playsinline preload="metadata" onloadeddata="this.previousElementSibling.remove()"></video>`
-                : `<img src="${project.image}" alt="${project.title}" class="portfolio-image" loading="lazy" decoding="async" onload="this.previousElementSibling.remove()">`
+        fan.innerHTML = filteredData.map((project, i) => {
+            const offset = i - currentIndex;
+            const absOffset = Math.abs(offset);
+
+            // Only render cards within visible range
+            if (absOffset > half) return '';
+
+            const rotation = offset * 6;
+            const translateX = offset * 60;
+            const translateY = absOffset * 15;
+            const scale = 1 - absOffset * 0.06;
+            const zIndex = visibleCount - absOffset;
+            const opacity = 1 - absOffset * 0.12;
+
+            return `
+                <article class="fan-card${offset === 0 ? ' fan-card--active' : ''}"
+                    style="--rotation: ${rotation}deg; --tx: ${translateX}px; --ty: ${translateY}px; --scale: ${scale}; --z: ${zIndex}; --opacity: ${opacity};"
+                    data-index="${i}">
+                    ${project.video
+                        ? `<video ${offset === 0 ? `src="${project.video}"` : `data-src="${project.video}"`} class="fan-card-media" muted loop playsinline preload="none"></video>`
+                        : `<img src="${project.image}" alt="${project.title}" class="fan-card-media" loading="lazy" decoding="async">`
+                    }
+                </article>
+            `;
+        }).join('');
+
+        // Update info
+        const current = filteredData[currentIndex];
+        if (current) {
+            const catEl = document.getElementById('fanCategory');
+            const titleEl = document.getElementById('fanTitle');
+            const descEl = document.getElementById('fanDesc');
+            const counterEl = document.getElementById('fanCounter');
+
+            if (catEl) catEl.textContent = current.category || '';
+            if (titleEl) titleEl.textContent = current.title;
+            if (descEl) descEl.textContent = current.description;
+            if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${filteredData.length}`;
+        }
+
+        // Click on card to navigate
+        fan.querySelectorAll('.fan-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const idx = parseInt(card.dataset.index);
+                if (idx !== currentIndex) {
+                    currentIndex = idx;
+                    renderFanCards();
+                }
+            });
+
+            // Lazy-load video src and auto-play only on active card
+            const video = card.querySelector('video');
+            if (video) {
+                if (video.dataset.src && !video.src) {
+                    video.src = video.dataset.src;
+                }
+                if (card.classList.contains('fan-card--active')) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
             }
-            <div class="portfolio-overlay">
-                ${project.category ? `<span class="portfolio-category">${project.category}</span>` : ''}
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
-            </div>
-        </article>
-    `).join('');
+        });
+    }
 
-    // Auto-play videos on hover
-    grid.querySelectorAll('.portfolio-item').forEach(item => {
-        const video = item.querySelector('video');
-        if (!video) return;
-        item.addEventListener('mouseenter', () => video.play());
-        item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    // Navigation
+    const prevBtn = document.getElementById('fanPrev');
+    const nextBtn = document.getElementById('fanNext');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderFanCards();
+            }
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < filteredData.length - 1) {
+                currentIndex++;
+                renderFanCards();
+            }
+        });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        const portfolioSection = document.getElementById('portfolio');
+        const rect = portfolioSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (!isVisible) return;
+
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+            currentIndex--;
+            renderFanCards();
+        } else if (e.key === 'ArrowRight' && currentIndex < filteredData.length - 1) {
+            currentIndex++;
+            renderFanCards();
+        }
     });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    fan.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    fan.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentIndex < filteredData.length - 1) {
+                currentIndex++;
+                renderFanCards();
+            } else if (diff < 0 && currentIndex > 0) {
+                currentIndex--;
+                renderFanCards();
+            }
+        }
+    }, { passive: true });
+
+    renderFanCards();
 }
 
 // Render Process Steps

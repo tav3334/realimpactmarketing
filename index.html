@@ -16,10 +16,11 @@
     <!-- Preconnect & Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AOS Animation Library (non-blocking) -->
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -185,7 +186,7 @@
                         <div class="founder-ring-glow"></div>
                     </div>
                     <div class="founder-photo">
-                        <img src="assets/images/founder.jpeg" alt="Zouizer Mohamed - Fondateur de Real Impact Marketing">
+                        <img src="assets/images/founder.jpeg" alt="Zouizer Mohamed - Fondateur de Real Impact Marketing" width="280" height="340" loading="eager" decoding="async">
                     </div>
                     <div class="founder-particles">
                         <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -227,7 +228,24 @@
         </div>
 
         <div class="portfolio-filters" id="portfolioFilters" data-aos="fade-up" data-aos-delay="100"></div>
-        <div class="portfolio-grid" id="portfolioGrid"></div>
+
+        <div class="portfolio-fan" id="portfolioFan" data-aos="fade-up" data-aos-delay="200"></div>
+
+        <div class="portfolio-nav" data-aos="fade-up" data-aos-delay="300">
+            <button class="portfolio-nav-btn portfolio-nav-prev" id="fanPrev" aria-label="Projet précédent">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div class="portfolio-counter" id="fanCounter"></div>
+            <button class="portfolio-nav-btn portfolio-nav-next" id="fanNext" aria-label="Projet suivant">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+        </div>
+
+        <div class="portfolio-info" id="portfolioInfo" data-aos="fade-up" data-aos-delay="350">
+            <span class="portfolio-info-category" id="fanCategory"></span>
+            <h3 class="portfolio-info-title" id="fanTitle"></h3>
+            <p class="portfolio-info-desc" id="fanDesc"></p>
+        </div>
     </section>
 
     <!-- Process Section -->
@@ -476,16 +494,16 @@
         </svg>
     </button>
 
-    <!-- EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
     <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
     <!-- Custom JavaScript -->
-    <script src="js/data.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/advanced.js"></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/components.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/advanced.js" defer></script>
+
+    <!-- EmailJS SDK (loaded last, only needed for form) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 </body>
 </html>

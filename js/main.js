@@ -8,11 +8,11 @@
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
-    // Attendre la fin de l'animation de la barre (1.8s) puis fade out
+    // Attendre la fin de l'animation de la barre puis fade out
     setTimeout(() => {
         preloader.classList.add('fade-out');
-        preloader.addEventListener('transitionend', () => preloader.remove());
-    }, 2000);
+        preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+    }, 1200);
 });
 
 // Initialize AOS (Animate On Scroll)
