@@ -24,6 +24,7 @@ const servicesData = [
         icon: icons.code,
         title: 'Développement Web',
         description: 'Sites web modernes, performants et responsive adaptés à vos besoins business.',
+        popular: true,
         features: [
             'Sites vitrine & e-commerce',
             'Applications web sur mesure',
@@ -35,6 +36,7 @@ const servicesData = [
         icon: icons.megaphone,
         title: 'Marketing Digital',
         description: 'Stratégies marketing innovantes pour maximiser votre visibilité et vos conversions.',
+        popular: true,
         features: [
             'Gestion réseaux sociaux',
             'Campagnes publicitaires (Meta, Google)',

@@ -8,13 +8,19 @@ function renderServices() {
     if (!grid) return;
 
     grid.innerHTML = servicesData.map((service, i) => `
-        <article class="service-card" data-aos="fade-up" data-aos-delay="${i * 80}">
+        <article class="service-card${service.popular ? ' service-card--popular' : ''}" data-aos="fade-up" data-aos-delay="${i * 100}">
+            <span class="service-number">0${i + 1}</span>
+            ${service.popular ? '<span class="service-badge">Populaire</span>' : ''}
             <div class="service-icon" role="img" aria-label="${service.title}">${service.icon}</div>
             <h3>${service.title}</h3>
             <p>${service.description}</p>
             <ul class="service-features">
                 ${service.features.map(f => `<li>${f}</li>`).join('')}
             </ul>
+            <a href="#contact" class="service-link">
+                En savoir plus
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
         </article>
     `).join('');
 }
