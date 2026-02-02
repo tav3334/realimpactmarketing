@@ -257,16 +257,16 @@ const contactDetails = [
     {
         icon: icons.mailIcon,
         title: 'Email',
-        info: 'contact@realimpact-marketing.com'
+        info: 'contact@realimpactmarketing.tamazirtt.com'
     },
     {
         icon: icons.phone,
         title: 'Téléphone',
-        info: '+212 6XX XX XX XX'
+        info: '+212 7 66 52 80 13'
     },
     {
         icon: icons.mapPin,
         title: 'Localisation',
-        info: 'Kénitra, Maroc'
+        info: 'Agadir, Maroc'
     }
 ];

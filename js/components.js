@@ -19,13 +19,56 @@ function renderServices() {
     `).join('');
 }
 
-// Render Portfolio
+// Render Portfolio with filter tabs & bento layout
 function renderPortfolio() {
     const grid = document.getElementById('portfolioGrid');
+    const filtersContainer = document.getElementById('portfolioFilters');
     if (!grid) return;
 
+    // Extract unique categories
+    const categories = ['Tous', ...new Set(portfolioData.map(p => p.category).filter(Boolean))];
+
+    // Render filter buttons
+    if (filtersContainer) {
+        filtersContainer.innerHTML = categories.map((cat, i) => `
+            <button class="portfolio-filter-btn${i === 0 ? ' active' : ''}" data-filter="${cat}">${cat}</button>
+        `).join('');
+
+        filtersContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.portfolio-filter-btn');
+            if (!btn) return;
+
+            filtersContainer.querySelectorAll('.portfolio-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+            const items = grid.querySelectorAll('.portfolio-item');
+
+            items.forEach((item, i) => {
+                const cat = item.dataset.category;
+                const shouldShow = filter === 'Tous' || cat === filter;
+
+                if (!shouldShow) {
+                    item.classList.add('hiding');
+                    item.classList.remove('showing');
+                } else {
+                    item.classList.remove('hiding');
+                    item.classList.add('showing');
+                    item.style.animationDelay = `${i * 60}ms`;
+                }
+            });
+        });
+    }
+
+    // Bento layout: first item featured (wide), 4th item tall
+    const bentoClasses = (i) => {
+        if (i === 0) return 'featured';
+        if (i === 3) return 'tall';
+        return '';
+    };
+
     grid.innerHTML = portfolioData.map((project, i) => `
-        <article class="portfolio-item" data-aos="fade-up" data-aos-delay="${i * 80}">
+        <article class="portfolio-item ${bentoClasses(i)} showing" data-category="${project.category || ''}" data-aos="fade-up" data-aos-delay="${i * 60}">
             <div class="portfolio-skeleton"></div>
             ${project.video
                 ? `<video src="${project.video}" class="portfolio-image" muted loop playsinline preload="metadata" onloadeddata="this.previousElementSibling.remove()"></video>`

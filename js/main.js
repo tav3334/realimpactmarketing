@@ -449,7 +449,7 @@ console.log(
     'background: linear-gradient(135deg, #00C896, #00A077); color: white; font-size: 18px; font-weight: bold; padding: 8px 16px; border-radius: 8px;'
 );
 console.log(
-    '%cDéveloppé avec passion | contact@realimpact-marketing.com',
+    '%cDéveloppé avec passion | contact@realimpactmarketing.tamazirtt.com',
     'color: #666; font-size: 12px; padding: 4px 0;'
 );
 

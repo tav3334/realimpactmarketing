@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://realimpact-marketing.com/sitemap.xml
+Sitemap: https://realimpactmarketing.tamazirtt.com/sitemap.xml
