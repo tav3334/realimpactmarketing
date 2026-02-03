@@ -51,20 +51,63 @@
 /* ==========================================
    PRELOADER
    ========================================== */
+
+/* Hide page content until loaded */
+body.is-loading {
+    overflow: hidden;
+}
+
+body.is-loading > *:not(.preloader) {
+    opacity: 0;
+}
+
+body.is-loaded > *:not(.preloader) {
+    animation: pageReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes pageReveal {
+    from {
+        opacity: 0;
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
 .preloader {
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: #0a0e13;
+    background: var(--bg, #0a0e13);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    will-change: transform, opacity;
 }
 
 .preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
+    animation: preloaderExit 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes preloaderExit {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+    60% {
+        opacity: 0.5;
+        transform: scale(1.02);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+        filter: blur(4px);
+        visibility: hidden;
+    }
 }
 
 .preloader-inner {
@@ -80,6 +123,18 @@
     color: var(--primary, #00C896);
     animation: preloaderPulse 1.8s ease-in-out infinite, preloaderSpin 3s linear infinite;
     will-change: transform;
+}
+
+/* Preloader exit: logo shrinks before page fades */
+.preloader.fade-out .preloader-inner {
+    animation: preloaderContentExit 0.5s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes preloaderContentExit {
+    to {
+        opacity: 0;
+        transform: scale(0.85) translateY(-10px);
+    }
 }
 
 .preloader-logo svg {
@@ -100,7 +155,7 @@
     width: 0%;
     background: linear-gradient(90deg, var(--primary, #00C896), var(--primary-light, #00F5B5));
     border-radius: 4px;
-    animation: preloaderProgress 1s ease-in-out forwards;
+    animation: preloaderProgress 0.35s ease-out forwards;
     box-shadow: 0 0 12px rgba(0, 200, 150, 0.5);
 }
 
@@ -126,8 +181,7 @@
 
 @keyframes preloaderProgress {
     0% { width: 0%; }
-    30% { width: 40%; }
-    60% { width: 70%; }
+    50% { width: 60%; }
     100% { width: 100%; }
 }
 
@@ -182,6 +236,12 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+    content-visibility: auto;
+}
+
+/* Optimize images for performance */
+img[loading="lazy"] {
+    background: var(--surface);
 }
 
 /* ==========================================
@@ -1257,6 +1317,230 @@ nav.scrolled {
 @media (max-width: 1024px) {
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================
+   TEAM SECTION
+   ========================================== */
+.team {
+    padding: 100px 2rem;
+    background: var(--white);
+    transition: background-color var(--duration) var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+
+.team::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--primary) 5%, transparent), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.team::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent-pink) 5%, transparent), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.team-grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.team-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.5s var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent-pink));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease);
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2), 0 0 40px color-mix(in srgb, var(--primary) 8%, transparent);
+    border-color: var(--border-hover);
+}
+
+.team-card:hover::before {
+    transform: scaleX(1);
+}
+
+.team-photo {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+}
+
+.team-photo::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent-pink));
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+}
+
+.team-card:hover .team-photo::before {
+    opacity: 1;
+}
+
+.team-photo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    position: relative;
+    z-index: 1;
+    border: 4px solid var(--surface);
+    transition: transform 0.5s var(--ease);
+}
+
+.team-card:hover .team-photo img {
+    transform: scale(1.05);
+}
+
+.team-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    border: 4px solid var(--surface);
+    transition: transform 0.5s var(--ease);
+}
+
+.team-photo-placeholder span {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.02em;
+}
+
+.team-card:hover .team-photo-placeholder {
+    transform: scale(1.05);
+}
+
+.team-info h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 0.35rem;
+    transition: color 0.3s var(--ease);
+}
+
+.team-card:hover .team-info h3 {
+    color: var(--primary);
+}
+
+.team-role {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.team-desc {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.team-social {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.team-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    transition: all 0.3s var(--ease);
+}
+
+.team-social a:hover {
+    background: linear-gradient(135deg, var(--primary), var(--accent-pink));
+    border-color: transparent;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 200, 150, 0.3);
+}
+
+/* Team responsive */
+@media (max-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .team-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .team-photo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .team-photo-placeholder span {
+        font-size: 2rem;
     }
 }
 

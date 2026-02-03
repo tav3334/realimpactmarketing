@@ -3,28 +3,44 @@
 // ==========================================
 
 // ==========================================
-// PRELOADER
+// PRELOADER & PAGE REVEAL
 // ==========================================
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
-    if (!preloader) return;
-    // Attendre la fin de l'animation de la barre puis fade out
+    if (!preloader) {
+        document.body.classList.remove('is-loading');
+        document.body.classList.add('is-loaded');
+        initAOS();
+        return;
+    }
+
+    // Exit preloader quickly (reduced from 1200ms to 400ms)
     setTimeout(() => {
         preloader.classList.add('fade-out');
-        preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
-    }, 1200);
+
+        // After preloader animation ends, reveal page content
+        preloader.addEventListener('animationend', () => {
+            document.body.classList.remove('is-loading');
+            document.body.classList.add('is-loaded');
+            preloader.remove();
+
+            // Initialize AOS after page is revealed
+            setTimeout(initAOS, 50);
+        }, { once: true });
+    }, 400);
 });
 
 // Initialize AOS (Animate On Scroll)
-document.addEventListener('DOMContentLoaded', () => {
+function initAOS() {
+    if (typeof AOS === 'undefined') return;
     AOS.init({
-        duration: 700,
-        easing: 'ease-out-cubic',
+        duration: 500,
+        easing: 'ease-out',
         once: true,
-        offset: 80,
+        offset: 50,
         disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     });
-});
+}
 
 // Dark mode is forced via HTML data-theme="dark"
 
@@ -166,10 +182,6 @@ initializeSmoothScroll();
 // CONTACT FORM SUBMISSION
 // ==========================================
 function initializeContactForm() {
-    // Initialiser EmailJS avec votre Public Key
-    // REMPLACEZ 'YOUR_PUBLIC_KEY' par votre clé publique EmailJS
-    emailjs.init('YBqL1p9INGpUCXx8n');
-
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
 
@@ -203,8 +215,16 @@ function initializeContactForm() {
         btn.textContent = 'Envoi en cours...';
         btn.disabled = true;
 
+        // Check if EmailJS is loaded
+        if (typeof emailjs === 'undefined') {
+            showNotification('Le formulaire charge encore, veuillez réessayer.', 'error');
+            btn.style.transform = '';
+            btn.textContent = originalText;
+            btn.disabled = false;
+            return;
+        }
+
         // Envoyer l'email via EmailJS
-        // REMPLACEZ 'YOUR_SERVICE_ID' et 'YOUR_TEMPLATE_ID' par vos identifiants
         emailjs.send('service_mx7eqy7', 'template_m3ghdzr', {
             from_name: data.name,
             from_email: data.email,

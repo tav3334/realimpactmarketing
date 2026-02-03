@@ -8,7 +8,7 @@ function renderServices() {
     if (!grid) return;
 
     grid.innerHTML = servicesData.map((service, i) => `
-        <article class="service-card${service.popular ? ' service-card--popular' : ''}" data-aos="fade-up" data-aos-delay="${i * 100}">
+        <article class="service-card${service.popular ? ' service-card--popular' : ''}" data-aos="fade-up" data-aos-delay="${Math.min(i * 50, 150)}">
             <span class="service-number">0${i + 1}</span>
             ${service.popular ? '<span class="service-badge">Populaire</span>' : ''}
             <div class="service-icon" role="img" aria-label="${service.title}">${service.icon}</div>
@@ -197,7 +197,7 @@ function renderProcessSteps() {
     if (!container) return;
 
     container.innerHTML = processSteps.map((step, i) => `
-        <div class="process-step" data-aos="fade-up" data-aos-delay="${i * 100}">
+        <div class="process-step" data-aos="fade-up" data-aos-delay="${Math.min(i * 50, 150)}">
             <div class="step-header">
                 <div class="step-number" aria-hidden="true">
                     <span class="step-icon">${step.icon || ''}</span>
@@ -237,7 +237,7 @@ function renderTestimonials() {
     if (!container) return;
 
     container.innerHTML = testimonialsData.map((t, i) => `
-        <article class="testimonial-card" data-aos="fade-up" data-aos-delay="${i * 100}">
+        <article class="testimonial-card" data-aos="fade-up" data-aos-delay="${Math.min(i * 50, 150)}">
             <div class="testimonial-quote" aria-hidden="true">"</div>
             <blockquote class="testimonial-text">${t.quote}</blockquote>
             <div class="testimonial-author">

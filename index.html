@@ -18,12 +18,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- AOS Animation Library (non-blocking) -->
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- AOS Animation Library CSS (lazy loaded) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="print" onload="this.media='all'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+
+    <!-- Critical CSS inline for faster FCP -->
+    <style>
+        body.is-loading{overflow:hidden}
+        body.is-loading>*:not(.preloader){opacity:0}
+        .preloader{position:fixed;inset:0;z-index:99999;background:#0a0e13;display:flex;align-items:center;justify-content:center}
+    </style>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -46,7 +53,7 @@
     }
     </script>
 </head>
-<body>
+<body class="is-loading">
     <!-- Preloader -->
     <div id="preloader" class="preloader">
         <div class="preloader-inner">
@@ -86,6 +93,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#equipe">Équipe</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#processus">Processus</a></li>
                 <li><a href="#instagram">Instagram</a></li>
@@ -186,7 +194,7 @@
                         <div class="founder-ring-glow"></div>
                     </div>
                     <div class="founder-photo">
-                        <img src="assets/images/founder.jpeg" alt="Zouizer Mohamed - Fondateur de Real Impact Marketing" width="280" height="340" loading="eager" decoding="async">
+                        <img src="assets/images/founder.jpeg" alt="Zouizer Mohamed - Fondateur de Real Impact Marketing" width="280" height="340" loading="eager" decoding="async" fetchpriority="high">
                     </div>
                     <div class="founder-particles">
                         <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -216,6 +224,57 @@
                 Discutons de votre projet
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="equipe">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Notre Équipe</div>
+            <h2 class="section-title">Les Experts Derrière Vos Projets</h2>
+            <p class="section-description">Une équipe passionnée et expérimentée, dédiée à transformer vos idées en succès digital.</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="team-photo">
+                    <img src="assets/images/team1.jpeg" alt="Hiba - Community Manager" loading="lazy" decoding="async" width="300" height="300">
+                </div>
+                <div class="team-info">
+                    <h3>Hiba</h3>
+                    <p class="team-role">Community Manager</p>
+                </div>
+            </div>
+
+            <div class="team-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="team-photo">
+                    <img src="assets/images/team2.JPG" alt="Khalid - Motion Graphic & Design" loading="lazy" decoding="async" width="300" height="300">
+                </div>
+                <div class="team-info">
+                    <h3>Khalid</h3>
+                    <p class="team-role">Motion Graphic & Design</p>
+                </div>
+            </div>
+
+            <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="team-photo">
+                    <img src="assets/images/team3.JPG" alt="Omar - Vidéography" loading="lazy" decoding="async" width="300" height="300">
+                </div>
+                <div class="team-info">
+                    <h3>Omar</h3>
+                    <p class="team-role">Vidéography</p>
+                </div>
+            </div>
+
+            <div class="team-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="team-photo">
+                    <img src="assets/images/team4.jpeg" alt="Développeur Full Stack" loading="lazy" decoding="async" width="300" height="300">
+                </div>
+                <div class="team-info">
+                    <h3>TARIQ</h3>
+                    <p class="team-role">Full Stack Developer</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -494,16 +553,41 @@
         </svg>
     </button>
 
-    <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-
-    <!-- Custom JavaScript -->
+    <!-- Custom JavaScript (critical) -->
     <script src="js/data.js" defer></script>
     <script src="js/components.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/advanced.js" defer></script>
 
-    <!-- EmailJS SDK (loaded last, only needed for form) -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+    <!-- Non-critical scripts loaded after page interaction -->
+    <script>
+        // Lazy load AOS only when user scrolls
+        let aosLoaded = false;
+        function loadAOS() {
+            if (aosLoaded) return;
+            aosLoaded = true;
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+            script.onload = () => { if (typeof AOS !== 'undefined' && typeof initAOS === 'function') initAOS(); };
+            document.body.appendChild(script);
+        }
+        // Load AOS on first scroll or after 2s
+        window.addEventListener('scroll', loadAOS, { once: true, passive: true });
+        setTimeout(loadAOS, 2000);
+
+        // Lazy load EmailJS only when form is focused
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            let emailjsLoaded = false;
+            contactForm.addEventListener('focusin', function() {
+                if (emailjsLoaded) return;
+                emailjsLoaded = true;
+                const s = document.createElement('script');
+                s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+                s.onload = () => { if (typeof emailjs !== 'undefined') emailjs.init('YBqL1p9INGpUCXx8n'); };
+                document.body.appendChild(s);
+            }, { once: true });
+        }
+    </script>
 </body>
 </html>
