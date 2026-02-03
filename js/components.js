@@ -33,6 +33,7 @@ function renderPortfolio() {
 
     let filteredData = [...portfolioData];
     let currentIndex = Math.floor(filteredData.length / 2);
+    let portfolioInitialized = false;
 
     // Extract unique categories
     const categories = ['Tous', ...new Set(portfolioData.map(p => p.category).filter(Boolean))];
@@ -62,7 +63,7 @@ function renderPortfolio() {
 
     function renderFanCards() {
         const total = filteredData.length;
-        const visibleCount = Math.min(total, 7);
+        const visibleCount = Math.min(total, 5); // Reduced from 7 to 5 for better performance
         const half = Math.floor(visibleCount / 2);
 
         fan.innerHTML = filteredData.map((project, i) => {
@@ -78,15 +79,29 @@ function renderPortfolio() {
             const scale = 1 - absOffset * 0.06;
             const zIndex = visibleCount - absOffset;
             const opacity = 1 - absOffset * 0.12;
+            const isActive = offset === 0;
+
+            // For videos: only load video when active, show placeholder otherwise
+            if (project.video) {
+                return `
+                    <article class="fan-card${isActive ? ' fan-card--active' : ''}"
+                        style="--rotation: ${rotation}deg; --tx: ${translateX}px; --ty: ${translateY}px; --scale: ${scale}; --z: ${zIndex}; --opacity: ${opacity};"
+                        data-index="${i}" data-video="${project.video}">
+                        <div class="fan-card-media fan-card-video-container">
+                            ${isActive
+                                ? `<video src="${project.video}" class="fan-card-video" muted loop playsinline preload="metadata"></video>`
+                                : `<div class="fan-card-video-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>`
+                            }
+                        </div>
+                    </article>
+                `;
+            }
 
             return `
-                <article class="fan-card${offset === 0 ? ' fan-card--active' : ''}"
+                <article class="fan-card${isActive ? ' fan-card--active' : ''}"
                     style="--rotation: ${rotation}deg; --tx: ${translateX}px; --ty: ${translateY}px; --scale: ${scale}; --z: ${zIndex}; --opacity: ${opacity};"
                     data-index="${i}">
-                    ${project.video
-                        ? `<video ${offset === 0 ? `src="${project.video}"` : `data-src="${project.video}"`} class="fan-card-media" muted loop playsinline preload="none"></video>`
-                        : `<img src="${project.image}" alt="${project.title}" class="fan-card-media" loading="lazy" decoding="async">`
-                    }
+                    <img src="${project.image}" alt="${project.title}" class="fan-card-media" loading="lazy" decoding="async">
                 </article>
             `;
         }).join('');
@@ -105,7 +120,7 @@ function renderPortfolio() {
             if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${filteredData.length}`;
         }
 
-        // Click on card to navigate
+        // Handle card interactions
         fan.querySelectorAll('.fan-card').forEach(card => {
             card.addEventListener('click', () => {
                 const idx = parseInt(card.dataset.index);
@@ -115,16 +130,11 @@ function renderPortfolio() {
                 }
             });
 
-            // Lazy-load video src and auto-play only on active card
-            const video = card.querySelector('video');
-            if (video) {
-                if (video.dataset.src && !video.src) {
-                    video.src = video.dataset.src;
-                }
-                if (card.classList.contains('fan-card--active')) {
+            // Auto-play video only on active card
+            if (card.classList.contains('fan-card--active')) {
+                const video = card.querySelector('video');
+                if (video) {
                     video.play().catch(() => {});
-                } else {
-                    video.pause();
                 }
             }
         });
@@ -188,7 +198,19 @@ function renderPortfolio() {
         }
     }, { passive: true });
 
-    renderFanCards();
+    // Lazy initialize portfolio only when section is visible
+    const portfolioSection = document.getElementById('portfolio');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !portfolioInitialized) {
+                portfolioInitialized = true;
+                renderFanCards();
+                observer.disconnect();
+            }
+        });
+    }, { rootMargin: '100px' });
+
+    observer.observe(portfolioSection);
 }
 
 // Render Process Steps
