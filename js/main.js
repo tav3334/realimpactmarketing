@@ -95,24 +95,24 @@ function initializeMobileMenu() {
 
     if (!mobileMenuBtn || !navLinks) return;
 
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
+    function toggleMobileMenu(open) {
+        const isOpen = typeof open === 'boolean' ? open : !mobileMenuBtn.classList.contains('active');
+        mobileMenuBtn.classList.toggle('active', isOpen);
+        navLinks.classList.toggle('active', isOpen);
+        mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+    }
+
+    mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
 
     // Close menu when clicking on a link
     navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuBtn.classList.remove('active');
-            navLinks.classList.remove('active');
-        });
+        link.addEventListener('click', () => toggleMobileMenu(false));
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.nav-container')) {
-            mobileMenuBtn.classList.remove('active');
-            navLinks.classList.remove('active');
+            toggleMobileMenu(false);
         }
     });
 }
@@ -171,6 +171,10 @@ function initializeSmoothScroll() {
                     top: offsetTop,
                     behavior: 'smooth'
                 });
+
+                // Flash highlight on target section
+                target.classList.add('section-highlight');
+                setTimeout(() => target.classList.remove('section-highlight'), 1500);
             }
         });
     });
@@ -202,9 +206,22 @@ function initializeContactForm() {
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData.entries());
 
-        // Validate
+        // Validate required fields
         if (!data.name || !data.email || !data.message) {
             showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+            return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showNotification('Veuillez entrer une adresse email valide.', 'error');
+            return;
+        }
+
+        // Validate phone format (optional field, but validate if filled)
+        if (data.phone && !/^[\d\s\+\-\(\)]{7,20}$/.test(data.phone)) {
+            showNotification('Veuillez entrer un numéro de téléphone valide.', 'error');
             return;
         }
 
@@ -358,7 +375,6 @@ function initializeCounters() {
                 const suffix = text.replace(/[\d]/g, '');
 
                 if (!isNaN(number) && number > 0) {
-                    element = entry.target;
                     animateCounter(entry.target, number, suffix);
                 }
             }

@@ -93,52 +93,76 @@ const servicesData = [
 // Portfolio Data
 const portfolioData = [
     {
-        image: 'assets/images/portfolio-1.jpeg',
-        title: 'E-commerce Fashion',
+        image: 'assets/images/E-commerce Fashion.png',
+        title: 'Ghost Food - Application Web',
         category: 'Développement Web',
-        description: 'Site e-commerce complet avec gestion des stocks et paiements sécurisés'
+        description: 'Plateforme de commande en ligne pour Ghost Food, dark kitchen multi-restaurants à Agadir'
     },
     {
-        image: 'assets/images/portfolio-2.jpeg',
-        title: 'Campagne Social Media',
+        image: 'assets/images/pr1.PNG',
+        title: 'Fresh Kitchen - Contenu Visuel',
         category: 'Marketing Digital',
-        description: 'Stratégie Instagram qui a généré +300% d\'engagement en 3 mois'
+        description: 'Création de contenu visuel et campagne social media pour Fresh Kitchen Agadir'
     },
     {
-        image: 'assets/images/portfolio-3.jpeg',
-        title: 'Application Mobile',
-        category: 'Développement',
-        description: 'App de réservation intuitive avec plus de 10K téléchargements'
-    },
-    {
-        image: 'assets/images/portfolio-4.jpeg',
-        title: 'Branding Startup Tech',
+        image: 'assets/images/pr4.jpg',
+        title: 'Fresh Kitchen - Design Culinaire',
         category: 'Design & Branding',
-        description: 'Identité visuelle complète pour une startup innovante'
+        description: 'Photographie culinaire et design de publications pour Fresh Kitchen, restaurant bio & organic'
     },
     {
-        image: 'assets/images/portfolio-5.jpeg',
-        title: 'SEO Restaurant',
-        category: 'SEO',
-        description: 'Optimisation SEO locale: +450% de visibilité en 6 mois'
+        image: 'assets/images/pr5.jpg',
+        title: 'Fresh Kitchen - Branding',
+        category: 'Design & Branding',
+        description: 'Identité visuelle et shooting photo professionnel pour les bowls healthy de Fresh Kitchen'
     },
     {
-        image: 'assets/images/portfolio-6.jpeg',
-        title: 'Plateforme E-learning',
-        category: 'Développement Web',
-        description: 'Système de formation en ligne avec tableau de bord avancé'
+        image: 'assets/images/pr6.jpg',
+        title: 'Fresh Kitchen - Social Media',
+        category: 'Marketing Digital',
+        description: 'Stratégie de contenu et photographie food pour les réseaux sociaux de Fresh Kitchen'
+    },
+    {
+        image: 'assets/images/pr2.jpg',
+        title: 'Saykouk - Campagne Rooftop',
+        category: 'Marketing Digital',
+        description: 'Campagne promotionnelle pour Saykouk, nouveau concept rooftop à Agadir'
+    },
+    {
+        image: 'assets/images/couscous-friday.jpg',
+        title: 'Saykouk - Couscous Friday',
+        category: 'Audiovisuel',
+        description: 'Shooting photo culinaire traditionnel marocain pour la campagne Couscous Friday de Saykouk'
+    },
+    {
+        image: 'assets/images/xx.PNG',
+        title: 'DaVinci Studios - Shooting Mode',
+        category: 'Audiovisuel',
+        description: 'Séance photo professionnelle et direction artistique pour DaVinci Studios'
+    },
+    {
+        image: 'assets/images/davinci-studios.jpeg',
+        title: 'DaVinci Studios - Agriculture',
+        category: 'Audiovisuel',
+        description: 'Reportage photo pour un projet agricole, mise en valeur du terroir marocain'
     },
     {
         video: 'assets/videos/ghost-motion.mp4',
-        title: 'Ghost Restaurant - Motion Design',
+        title: 'Ghost Food - Motion Design',
         category: 'Création de Vidéo',
-        description: 'Motion design promotionnel pour Ghost, restaurant en ligne innovant'
+        description: 'Motion design promotionnel pour Ghost Food, restaurant en ligne innovant à Agadir'
     },
     {
         video: 'assets/videos/ghost-romantique.mp4',
         title: 'Ghost - Ambiance Romantique',
-        category: 'Audiovisuel',
+        category: 'Création de Vidéo',
         description: 'Vidéo d\'ambiance romantique pour la campagne Valentine de Ghost'
+    },
+    {
+        video: 'assets/images/Application Mobile.mp4',
+        title: 'Application Mobile - Promo',
+        category: 'Création de Vidéo',
+        description: 'Vidéo promotionnelle pour le lancement d\'une application mobile'
     },
     {
         video: 'assets/videos/galien.mp4',

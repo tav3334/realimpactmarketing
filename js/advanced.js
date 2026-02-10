@@ -115,6 +115,184 @@ class ScrollReveal {
     }
 }
 
+// STATS COUNTER: handled in main.js (initializeCounters)
+
+// ==========================================
+// WHATSAPP FLOATING BUTTON
+// ==========================================
+function initWhatsAppFloat() {
+    const btn = document.getElementById('whatsappFloat');
+    if (!btn) return;
+
+    // Show after scroll
+    let shown = false;
+    function checkShow() {
+        if (!shown && window.scrollY > 300) {
+            btn.classList.add('visible');
+            shown = true;
+            // Auto-stop pulse animation after 8s to avoid annoyance
+            setTimeout(() => btn.classList.add('pulse-done'), 8000);
+        }
+    }
+    window.addEventListener('scroll', checkShow, { passive: true });
+    setTimeout(checkShow, 3000);
+}
+
+// ==========================================
+// SERVICE CARD RIPPLE EFFECT
+// ==========================================
+function initServiceRipple() {
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.service-card');
+        if (!card) return;
+
+        const rect = card.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        card.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+    });
+}
+
+// ==========================================
+// TESTIMONIALS AUTO-SCROLL ON MOBILE
+// ==========================================
+function initTestimonialsAutoScroll() {
+    if (window.innerWidth > 768) return;
+
+    const slider = document.getElementById('testimonialsSlider');
+    if (!slider) return;
+
+    let scrollInterval;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                scrollInterval = setInterval(() => {
+                    const maxScroll = slider.scrollWidth - slider.clientWidth;
+                    if (slider.scrollLeft >= maxScroll) {
+                        slider.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        slider.scrollBy({ left: 320, behavior: 'smooth' });
+                    }
+                }, 4000);
+            } else {
+                clearInterval(scrollInterval);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(slider);
+
+    // Pause on touch
+    slider.addEventListener('touchstart', () => clearInterval(scrollInterval), { passive: true });
+}
+
+// ==========================================
+// PORTFOLIO LIGHTBOX
+// ==========================================
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxVideo = document.getElementById('lightboxVideo');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDesc = document.getElementById('lightboxDesc');
+    const lightboxCategory = document.getElementById('lightboxCategory');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    if (!lightbox || typeof portfolioData === 'undefined') return;
+
+    let currentLightboxIndex = 0;
+
+    function openLightbox(index) {
+        currentLightboxIndex = index;
+        updateLightboxContent();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        if (lightboxVideo) {
+            lightboxVideo.pause();
+            lightboxVideo.src = '';
+            lightboxVideo.style.display = 'none';
+        }
+        if (lightboxImg) lightboxImg.style.display = '';
+    }
+
+    function updateLightboxContent() {
+        const item = portfolioData[currentLightboxIndex];
+        if (!item) return;
+
+        if (item.video) {
+            lightboxImg.style.display = 'none';
+            lightboxVideo.style.display = 'block';
+            lightboxVideo.src = item.video;
+            lightboxVideo.play().catch(() => {});
+        } else {
+            lightboxVideo.style.display = 'none';
+            lightboxVideo.pause();
+            lightboxVideo.src = '';
+            lightboxImg.style.display = 'block';
+            lightboxImg.src = item.image;
+            lightboxImg.alt = item.title;
+        }
+
+        lightboxTitle.textContent = item.title;
+        lightboxDesc.textContent = item.description;
+        lightboxCategory.textContent = item.category;
+    }
+
+    // Listen for clicks on portfolio fan cards
+    document.addEventListener('click', (e) => {
+        const fanCard = e.target.closest('.fan-card--active');
+        if (fanCard) {
+            const idx = parseInt(fanCard.dataset.index);
+            if (!isNaN(idx)) openLightbox(idx);
+        }
+    });
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', () => {
+            currentLightboxIndex = (currentLightboxIndex - 1 + portfolioData.length) % portfolioData.length;
+            updateLightboxContent();
+        });
+    }
+
+    if (lightboxNext) {
+        lightboxNext.addEventListener('click', () => {
+            currentLightboxIndex = (currentLightboxIndex + 1) % portfolioData.length;
+            updateLightboxContent();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') {
+            currentLightboxIndex = (currentLightboxIndex - 1 + portfolioData.length) % portfolioData.length;
+            updateLightboxContent();
+        }
+        if (e.key === 'ArrowRight') {
+            currentLightboxIndex = (currentLightboxIndex + 1) % portfolioData.length;
+            updateLightboxContent();
+        }
+    });
+}
+
 // ==========================================
 // INITIALIZE ADVANCED FEATURES
 // ==========================================
@@ -124,6 +302,18 @@ function initAdvancedFeatures() {
 
     // Scroll Reveal for elements with data-scroll attribute
     new ScrollReveal();
+
+    // WhatsApp floating button
+    initWhatsAppFloat();
+
+    // Portfolio lightbox
+    initLightbox();
+
+    // Service card ripple effect
+    initServiceRipple();
+
+    // Testimonials auto-scroll on mobile
+    initTestimonialsAutoScroll();
 }
 
 // Initialize when DOM is ready

@@ -4,14 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Real Impact Marketing - Agence Web & Marketing Digital au Maroc. Développement web, marketing digital, design, création vidéo et audiovisuel.">
+    <meta name="keywords" content="agence web Maroc, marketing digital Agadir, développement web, design, branding, SEO, création vidéo, audiovisuel, Real Impact Marketing">
+    <meta name="author" content="Real Impact Marketing">
     <meta name="theme-color" content="#0F1419">
     <meta name="color-scheme" content="dark">
     <meta name="view-transition" content="same-origin">
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://realimpactmarketing.tamazirtt.com/">
+    <meta property="og:title" content="Real Impact Marketing - Agence Web & Marketing Digital au Maroc">
+    <meta property="og:description" content="Nous transformons vos idées en solutions digitales performantes. Développement web, marketing digital, design et audiovisuel à Agadir.">
+    <meta property="og:image" content="https://realimpactmarketing.tamazirtt.com/assets/images/og-cover.jpg">
+    <meta property="og:locale" content="fr_MA">
+    <meta property="og:site_name" content="Real Impact Marketing">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Real Impact Marketing - Agence Web & Marketing Digital">
+    <meta name="twitter:description" content="Agence digitale au Maroc. Développement web, marketing digital, design et audiovisuel.">
+    <meta name="twitter:image" content="https://realimpactmarketing.tamazirtt.com/assets/images/og-cover.jpg">
+
+    <!-- Canonical & Hreflang -->
+    <link rel="canonical" href="https://realimpactmarketing.tamazirtt.com/">
+    <link rel="alternate" hreflang="fr-MA" href="https://realimpactmarketing.tamazirtt.com/">
+    <link rel="alternate" hreflang="fr" href="https://realimpactmarketing.tamazirtt.com/">
+
     <title>Real Impact Marketing - Agence Web & Marketing Digital</title>
 
-    <!-- Favicon -->
+    <!-- Favicon & PWA -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300C896'%3E%3Cellipse cx='50' cy='20' rx='8' ry='20' transform='rotate(0 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='8' ry='20' transform='rotate(60 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='8' ry='20' transform='rotate(120 50 50)'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.json">
 
     <!-- Preconnect & Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,18 +61,38 @@
         "@context": "https://schema.org",
         "@type": "MarketingAgency",
         "name": "Real Impact Marketing",
-        "description": "Agence Web & Marketing Digital au Maroc",
+        "description": "Agence Web & Marketing Digital au Maroc. Développement web, marketing digital, design et audiovisuel à Agadir.",
+        "founder": {
+            "@type": "Person",
+            "name": "Zouizer Mohamed"
+        },
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Agadir",
+            "addressRegion": "Souss-Massa",
             "addressCountry": "MA"
         },
+        "areaServed": {
+            "@type": "Country",
+            "name": "Morocco"
+        },
+        "telephone": "+212766528013",
         "email": "contact@realimpactmarketing.tamazirtt.com",
         "url": "https://realimpactmarketing.tamazirtt.com",
+        "logo": "https://realimpactmarketing.tamazirtt.com/assets/images/og-cover.jpg",
+        "priceRange": "$$",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
         "sameAs": [
             "https://www.instagram.com/real_impact_marketing",
-            "https://www.instagram.com/realimpact_agency"
-        ]
+            "https://web.facebook.com/profile.php?id=61570633340700",
+            "https://linktr.ee/realimpactmarketing1"
+        ],
+        "knowsAbout": ["Web Development", "Digital Marketing", "Branding", "Video Production", "Social Media Management"]
     }
     </script>
 </head>
@@ -105,7 +148,7 @@
                         <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"/></svg>
                     </button>
                     <div class="contact-dropdown" id="contactDropdown">
-                        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="dropdown-item">
+                        <a href="https://wa.me/212766528013?text=Bonjour%2C%20je%20souhaite%20discuter%20d%27un%20projet" target="_blank" rel="noopener noreferrer" class="dropdown-item">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                             <span>WhatsApp</span>
                         </a>
@@ -113,7 +156,7 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                             <span>Instagram</span>
                         </a>
-                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="dropdown-item">
+                        <a href="https://web.facebook.com/profile.php?id=61570633340700" target="_blank" rel="noopener noreferrer" class="dropdown-item">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                             <span>Facebook</span>
                         </a>
@@ -125,7 +168,7 @@
                 </li>
             </ul>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -208,6 +251,28 @@
         </div>
     </section>
 
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="stats-container">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="stat-number" data-target="50" data-suffix="+">50+</div>
+                <div class="stat-label">Clients Satisfaits</div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-number" data-target="120" data-suffix="+">120+</div>
+                <div class="stat-label">Projets Réalisés</div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-number" data-target="3" data-suffix="">3</div>
+                <div class="stat-label">Années d'Expérience</div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-number" data-target="100" data-suffix="%">100%</div>
+                <div class="stat-label">Engagement Qualité</div>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="section-header" data-aos="fade-up">
@@ -216,7 +281,11 @@
             <p class="section-description">Des solutions complètes pour propulser votre présence digitale et booster votre croissance.</p>
         </div>
 
-        <div class="services-grid" id="servicesGrid"></div>
+        <div class="services-grid" id="servicesGrid">
+            <div class="skeleton" style="height: 320px; border-radius: 20px;"></div>
+            <div class="skeleton" style="height: 320px; border-radius: 20px;"></div>
+            <div class="skeleton" style="height: 320px; border-radius: 20px;"></div>
+        </div>
 
         <div class="services-cta" data-aos="fade-up" data-aos-delay="400">
             <p class="services-cta-text">Besoin d'une solution sur mesure ?</p>
@@ -238,30 +307,30 @@
         <div class="team-grid">
             <div class="team-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="team-photo">
-                    <img src="assets/images/team1.jpeg" alt="Hiba - Community Manager" loading="lazy" decoding="async" width="300" height="300">
+                    <img src="assets/images/team1.jpeg" alt="ASIYA - Community Manager" loading="lazy" decoding="async" width="300" height="300">
                 </div>
                 <div class="team-info">
-                    <h3>Hiba</h3>
+                    <h3>ASIYA</h3>
                     <p class="team-role">Community Manager</p>
                 </div>
             </div>
 
             <div class="team-card" data-aos="fade-up" data-aos-delay="150">
                 <div class="team-photo">
-                    <img src="assets/images/team2.JPG" alt="Khalid - Motion Graphic & Design" loading="lazy" decoding="async" width="300" height="300">
+                    <img src="assets/images/team2.JPG" alt="MOUAD - Motion Graphic & Design" loading="lazy" decoding="async" width="300" height="300">
                 </div>
                 <div class="team-info">
-                    <h3>Khalid</h3>
+                    <h3>MOUAD</h3>
                     <p class="team-role">Motion Graphic & Design</p>
                 </div>
             </div>
 
             <div class="team-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="team-photo">
-                    <img src="assets/images/team3.JPG" alt="Omar - Vidéography" loading="lazy" decoding="async" width="300" height="300">
+                    <img src="assets/images/team3.JPG" alt="OMAR - Vidéography" loading="lazy" decoding="async" width="300" height="300">
                 </div>
                 <div class="team-info">
-                    <h3>Omar</h3>
+                    <h3>OMAR</h3>
                     <p class="team-role">Vidéography</p>
                 </div>
             </div>
@@ -300,6 +369,11 @@
             </button>
         </div>
 
+        <div class="swipe-hint" aria-hidden="true">
+            <span>Glissez pour naviguer</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
         <div class="portfolio-info" id="portfolioInfo" data-aos="fade-up" data-aos-delay="350">
             <span class="portfolio-info-category" id="fanCategory"></span>
             <h3 class="portfolio-info-title" id="fanTitle"></h3>
@@ -319,7 +393,12 @@
             <p class="section-description">Un processus éprouvé pour garantir votre succès</p>
         </div>
 
-        <div class="process-steps" id="processSteps"></div>
+        <div class="process-steps" id="processSteps">
+            <div class="skeleton" style="height: 180px; border-radius: 16px;"></div>
+            <div class="skeleton" style="height: 180px; border-radius: 16px;"></div>
+            <div class="skeleton" style="height: 180px; border-radius: 16px;"></div>
+            <div class="skeleton" style="height: 180px; border-radius: 16px;"></div>
+        </div>
     </section>
 
     <!-- Instagram Section -->
@@ -397,7 +476,60 @@
             <h2 class="section-title">Ce que Disent Nos Clients</h2>
         </div>
 
-        <div class="testimonials-slider" id="testimonialsSlider"></div>
+        <div class="testimonials-slider" id="testimonialsSlider">
+            <div class="skeleton" style="height: 220px; border-radius: 20px;"></div>
+            <div class="skeleton" style="height: 220px; border-radius: 20px;"></div>
+            <div class="skeleton" style="height: 220px; border-radius: 20px;"></div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients-section" id="clients">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Ils Nous Font Confiance</div>
+            <h2 class="section-title">Nos Clients & Partenaires</h2>
+        </div>
+        <div class="clients-marquee" data-aos="fade-up" data-aos-delay="100">
+            <div class="clients-track">
+                <div class="client-logo">
+                    <span class="client-name">Ghost Food</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Fresh Kitchen</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Saykouk</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">DaVinci Studios</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Galien</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Content Studio</span>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="client-logo">
+                    <span class="client-name">Ghost Food</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Fresh Kitchen</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Saykouk</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">DaVinci Studios</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Galien</span>
+                </div>
+                <div class="client-logo">
+                    <span class="client-name">Content Studio</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Contact Section -->
@@ -416,7 +548,7 @@
                 <div class="contact-details" id="contactDetails"></div>
 
                 <div class="social-links">
-                    <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="social-link" title="WhatsApp">
+                    <a href="https://wa.me/212766528013?text=Bonjour%2C%20je%20souhaite%20discuter%20d%27un%20projet" target="_blank" rel="noopener noreferrer" class="social-link" title="WhatsApp">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     </a>
                     <a href="https://www.instagram.com/real_impact_marketing" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
@@ -426,7 +558,7 @@
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                         </svg>
                     </a>
-                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
+                    <a href="https://web.facebook.com/profile.php?id=61570633340700" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
@@ -441,15 +573,17 @@
                 <form id="contactForm" novalidate>
                     <div class="form-group">
                         <label for="name">Nom Complet</label>
-                        <input type="text" id="name" name="name" required autocomplete="name">
+                        <input type="text" id="name" name="name" required autocomplete="name" placeholder="Votre nom complet" minlength="2">
+                        <svg class="field-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required autocomplete="email">
+                        <input type="email" id="email" name="email" required autocomplete="email" placeholder="exemple@email.com">
+                        <svg class="field-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                     </div>
                     <div class="form-group">
                         <label for="phone">Téléphone</label>
-                        <input type="tel" id="phone" name="phone" autocomplete="tel">
+                        <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+212 6 00 00 00 00">
                     </div>
                     <div class="form-group">
                         <label for="service">Service Souhaité</label>
@@ -465,7 +599,8 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre projet ou votre besoin..." minlength="10"></textarea>
+                        <svg class="field-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="top: auto; bottom: 14px;"><path d="M20 6L9 17l-5-5"/></svg>
                     </div>
                     <button type="submit" class="submit-btn">
                         <span>Envoyer le Message</span>
@@ -519,7 +654,7 @@
             <div class="footer-links">
                 <h4>Suivez-nous</h4>
                 <div class="footer-social">
-                    <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="social-link" title="WhatsApp">
+                    <a href="https://wa.me/212766528013?text=Bonjour%2C%20je%20souhaite%20discuter%20d%27un%20projet" target="_blank" rel="noopener noreferrer" class="social-link" title="WhatsApp">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     </a>
                     <a href="https://www.instagram.com/real_impact_marketing" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
@@ -529,7 +664,7 @@
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                         </svg>
                     </a>
-                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
+                    <a href="https://web.facebook.com/profile.php?id=61570633340700" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
@@ -545,6 +680,34 @@
             <p>&copy; 2026 Real Impact Marketing. Tous droits réservés.</p>
         </div>
     </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/212766528013?text=Bonjour%2C%20je%20souhaite%20discuter%20d%27un%20projet" target="_blank" rel="noopener noreferrer" class="whatsapp-float" id="whatsappFloat" aria-label="Contactez-nous sur WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="whatsapp-tooltip">Discutons !</span>
+    </a>
+
+    <!-- Portfolio Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Aperçu du projet">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="" class="lightbox-media">
+            <video id="lightboxVideo" class="lightbox-media" controls muted style="display:none;"></video>
+        </div>
+        <div class="lightbox-info">
+            <span class="lightbox-category" id="lightboxCategory"></span>
+            <h3 class="lightbox-title" id="lightboxTitle"></h3>
+            <p class="lightbox-desc" id="lightboxDesc"></p>
+        </div>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Précédent">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Suivant">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+    </div>
 
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" aria-label="Retour en haut">

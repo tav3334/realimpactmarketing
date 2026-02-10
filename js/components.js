@@ -2,6 +2,12 @@
 // REAL IMPACT MARKETING - COMPONENTS
 // ==========================================
 
+// HTML escape utility to prevent XSS
+function escapeHTML(str) {
+    if (typeof str !== 'string') return str;
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
 // Render Services
 function renderServices() {
     const grid = document.getElementById('servicesGrid');
@@ -11,11 +17,11 @@ function renderServices() {
         <article class="service-card${service.popular ? ' service-card--popular' : ''}" data-aos="fade-up" data-aos-delay="${Math.min(i * 50, 150)}">
             <span class="service-number">0${i + 1}</span>
             ${service.popular ? '<span class="service-badge">Populaire</span>' : ''}
-            <div class="service-icon" role="img" aria-label="${service.title}">${service.icon}</div>
-            <h3>${service.title}</h3>
-            <p>${service.description}</p>
+            <div class="service-icon" role="img" aria-label="${escapeHTML(service.title)}">${service.icon}</div>
+            <h3>${escapeHTML(service.title)}</h3>
+            <p>${escapeHTML(service.description)}</p>
             <ul class="service-features">
-                ${service.features.map(f => `<li>${f}</li>`).join('')}
+                ${service.features.map(f => `<li>${escapeHTML(f)}</li>`).join('')}
             </ul>
             <a href="#contact" class="service-link">
                 En savoir plus
@@ -86,10 +92,10 @@ function renderPortfolio() {
                 return `
                     <article class="fan-card${isActive ? ' fan-card--active' : ''}"
                         style="--rotation: ${rotation}deg; --tx: ${translateX}px; --ty: ${translateY}px; --scale: ${scale}; --z: ${zIndex}; --opacity: ${opacity};"
-                        data-index="${i}" data-video="${project.video}">
+                        data-index="${i}" data-video="${escapeHTML(project.video)}">
                         <div class="fan-card-media fan-card-video-container">
                             ${isActive
-                                ? `<video src="${project.video}" class="fan-card-video" muted loop playsinline preload="metadata"></video>`
+                                ? `<video src="${escapeHTML(project.video)}" class="fan-card-video" muted loop playsinline preload="metadata"></video>`
                                 : `<div class="fan-card-video-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>`
                             }
                         </div>
@@ -101,7 +107,7 @@ function renderPortfolio() {
                 <article class="fan-card${isActive ? ' fan-card--active' : ''}"
                     style="--rotation: ${rotation}deg; --tx: ${translateX}px; --ty: ${translateY}px; --scale: ${scale}; --z: ${zIndex}; --opacity: ${opacity};"
                     data-index="${i}">
-                    <img src="${project.image}" alt="${project.title}" class="fan-card-media" loading="lazy" decoding="async">
+                    <img src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)}" class="fan-card-media" loading="lazy" decoding="async">
                 </article>
             `;
         }).join('');
@@ -228,8 +234,8 @@ function renderProcessSteps() {
                 ${i < processSteps.length - 1 ? '<div class="step-connector"><div class="step-connector-fill"></div></div>' : ''}
             </div>
             <div class="step-content">
-                <h3>${step.title}</h3>
-                <p>${step.description}</p>
+                <h3>${escapeHTML(step.title)}</h3>
+                <p>${escapeHTML(step.description)}</p>
             </div>
         </div>
     `).join('');
@@ -242,11 +248,11 @@ function renderInstagramPosts() {
 
     grid.innerHTML = instagramPosts.map((post, i) => `
         <a href="https://www.instagram.com/real_impact_marketing" target="_blank" rel="noopener noreferrer" class="ig-post" style="animation-delay: ${i * 80}ms">
-            <img src="${post.image}" alt="${post.caption}" loading="lazy" decoding="async">
+            <img src="${escapeHTML(post.image)}" alt="${escapeHTML(post.caption)}" loading="lazy" decoding="async">
             <div class="ig-post-overlay">
                 <span class="ig-post-likes">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                    ${post.likes}
+                    ${escapeHTML(post.likes)}
                 </span>
             </div>
         </a>
@@ -261,12 +267,12 @@ function renderTestimonials() {
     container.innerHTML = testimonialsData.map((t, i) => `
         <article class="testimonial-card" data-aos="fade-up" data-aos-delay="${Math.min(i * 50, 150)}">
             <div class="testimonial-quote" aria-hidden="true">"</div>
-            <blockquote class="testimonial-text">${t.quote}</blockquote>
+            <blockquote class="testimonial-text">${escapeHTML(t.quote)}</blockquote>
             <div class="testimonial-author">
-                <div class="author-avatar" aria-hidden="true">${t.initials}</div>
+                <div class="author-avatar" aria-hidden="true">${escapeHTML(t.initials)}</div>
                 <div class="author-info">
-                    <h4>${t.author}</h4>
-                    <p>${t.role}</p>
+                    <h4>${escapeHTML(t.author)}</h4>
+                    <p>${escapeHTML(t.role)}</p>
                 </div>
             </div>
         </article>
@@ -282,8 +288,8 @@ function renderContactDetails() {
         <div class="contact-item">
             <div class="contact-icon" aria-hidden="true">${contact.icon}</div>
             <div>
-                <h4>${contact.title}</h4>
-                <p>${contact.info}</p>
+                <h4>${escapeHTML(contact.title)}</h4>
+                <p>${escapeHTML(contact.info)}</p>
             </div>
         </div>
     `).join('');
