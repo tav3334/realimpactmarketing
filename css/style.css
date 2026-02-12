@@ -62,17 +62,17 @@ body.is-loading > *:not(.preloader) {
 }
 
 body.is-loaded > *:not(.preloader) {
-    animation: pageReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: pageReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @keyframes pageReveal {
     from {
         opacity: 0;
-        filter: blur(6px);
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
-        filter: blur(0px);
+        transform: translateY(0);
     }
 }
 
@@ -95,16 +95,14 @@ body.is-loaded > *:not(.preloader) {
     0% {
         opacity: 1;
         transform: scale(1);
-        filter: blur(0);
     }
     60% {
-        opacity: 0.5;
+        opacity: 0.4;
         transform: scale(1.03);
     }
     100% {
         opacity: 0;
-        transform: scale(1.08);
-        filter: blur(6px);
+        transform: scale(1.06);
         visibility: hidden;
     }
 }
@@ -351,11 +349,14 @@ img[loading="lazy"] {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
     height: 3px;
     background: linear-gradient(90deg, var(--primary) 0%, var(--accent-pink) 50%, var(--accent) 100%);
     z-index: 9999;
-    transition: width 0.05s linear;
     border-radius: 0 2px 2px 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    will-change: transform;
 }
 
 /* ==========================================
@@ -371,8 +372,7 @@ nav {
     z-index: 1000;
     padding: 1rem 0;
     box-shadow: 0 1px 0 var(--border);
-    transition: padding var(--duration) var(--ease), background var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
-    will-change: padding;
+    transition: padding var(--duration) var(--ease), background-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
     contain: layout style;
 }
 
@@ -1083,7 +1083,7 @@ nav.scrolled {
     padding: 2.5rem 2rem 2rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
-    transition: all 0.5s var(--ease);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
     position: relative;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -1408,7 +1408,7 @@ nav.scrolled {
     padding: 2.5rem 2rem;
     text-align: center;
     border: 1px solid var(--border);
-    transition: all 0.5s var(--ease);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
     position: relative;
     overflow: hidden;
 }
@@ -1668,7 +1668,7 @@ nav.scrolled {
     transform: translateX(var(--tx)) translateY(var(--ty)) rotate(var(--rotation)) scale(var(--scale));
     z-index: var(--z);
     opacity: var(--opacity);
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
@@ -1886,7 +1886,7 @@ nav.scrolled {
 .process-step {
     text-align: center;
     padding: 1rem 1rem 2rem;
-    transition: all 0.5s var(--ease);
+    transition: transform 0.5s var(--ease);
     position: relative;
 }
 
@@ -1917,14 +1917,14 @@ nav.scrolled {
     font-weight: 900;
     position: relative;
     z-index: 2;
-    transition: all 0.5s var(--ease);
+    transition: border-color 0.5s var(--ease), background-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
     flex-shrink: 0;
 }
 
 .step-icon {
     display: flex;
     color: var(--primary);
-    transition: all 0.4s var(--ease);
+    transition: color 0.4s var(--ease);
 }
 
 .step-num {
@@ -2335,7 +2335,7 @@ nav.scrolled {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     position: relative;
-    transition: all 0.5s var(--ease);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
     border: 1px solid var(--border);
 }
 
@@ -2999,9 +2999,22 @@ a:focus-visible {
 .process,
 .instagram-section,
 .testimonials,
+.clients-section,
+.team,
 .contact {
     content-visibility: auto;
     contain-intrinsic-size: auto 800px;
+}
+
+/* Isolate card repaints from parent layout + GPU compositing */
+.service-card,
+.team-card,
+.testimonial-card,
+.fan-card,
+.process-step,
+.client-logo {
+    contain: layout style;
+    backface-visibility: hidden;
 }
 
 /* ==========================================

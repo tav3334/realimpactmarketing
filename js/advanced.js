@@ -124,18 +124,21 @@ function initWhatsAppFloat() {
     const btn = document.getElementById('whatsappFloat');
     if (!btn) return;
 
-    // Show after scroll
-    let shown = false;
-    function checkShow() {
-        if (!shown && window.scrollY > 300) {
-            btn.classList.add('visible');
-            shown = true;
-            // Auto-stop pulse animation after 8s to avoid annoyance
-            setTimeout(() => btn.classList.add('pulse-done'), 8000);
-        }
+    // Use IntersectionObserver on hero section instead of scroll listener
+    const hero = document.getElementById('accueil');
+    if (hero) {
+        const observer = new IntersectionObserver((entries) => {
+            if (!entries[0].isIntersecting) {
+                btn.classList.add('visible');
+                setTimeout(() => btn.classList.add('pulse-done'), 8000);
+                observer.disconnect();
+            }
+        }, { threshold: 0.1 });
+        observer.observe(hero);
+    } else {
+        // Fallback: show after 3s
+        setTimeout(() => btn.classList.add('visible'), 3000);
     }
-    window.addEventListener('scroll', checkShow, { passive: true });
-    setTimeout(checkShow, 3000);
 }
 
 // ==========================================

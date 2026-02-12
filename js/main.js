@@ -79,8 +79,8 @@ const scrollProgress = document.getElementById('scrollProgress');
 function updateScrollProgress() {
     if (!scrollProgress) return;
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (window.scrollY / totalHeight) * 100;
-    scrollProgress.style.width = `${progress}%`;
+    const progress = window.scrollY / totalHeight;
+    scrollProgress.style.transform = `scaleX(${progress})`;
 }
 
 // ==========================================
@@ -456,19 +456,41 @@ function initializeCounters() {
 setTimeout(initializeCounters, 300);
 
 // ==========================================
-// ACTIVE LINK HIGHLIGHT
+// ACTIVE LINK HIGHLIGHT (optimized with cached offsets)
 // ==========================================
 const sections = document.querySelectorAll('section[id]');
 const navLinksAll = document.querySelectorAll('.nav-links a[href^="#"]');
+let sectionOffsets = [];
+let lastActiveId = '';
+
+function cacheSectionOffsets() {
+    sectionOffsets = Array.from(sections).map(s => ({
+        id: s.getAttribute('id'),
+        top: s.offsetTop
+    }));
+}
+
+// Cache offsets on load and resize
+window.addEventListener('load', cacheSectionOffsets);
+window.addEventListener('resize', () => {
+    clearTimeout(window._resizeTimer);
+    window._resizeTimer = setTimeout(cacheSectionOffsets, 200);
+});
 
 function highlightActiveSection() {
     let current = '';
+    const scrollY = window.scrollY;
 
-    sections.forEach(section => {
-        if (window.scrollY >= section.offsetTop - 120) {
-            current = section.getAttribute('id');
+    for (let i = sectionOffsets.length - 1; i >= 0; i--) {
+        if (scrollY >= sectionOffsets[i].top - 120) {
+            current = sectionOffsets[i].id;
+            break;
         }
-    });
+    }
+
+    // Skip DOM updates if nothing changed
+    if (current === lastActiveId) return;
+    lastActiveId = current;
 
     navLinksAll.forEach(link => {
         link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
