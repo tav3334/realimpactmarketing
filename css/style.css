@@ -88,7 +88,7 @@ body.is-loaded > *:not(.preloader) {
 }
 
 .preloader.fade-out {
-    animation: preloaderExit 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: preloaderExit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes preloaderExit {
@@ -99,13 +99,12 @@ body.is-loaded > *:not(.preloader) {
     }
     60% {
         opacity: 0.5;
-        transform: scale(1.02);
-        filter: blur(0);
+        transform: scale(1.03);
     }
     100% {
         opacity: 0;
-        transform: scale(1.05);
-        filter: blur(4px);
+        transform: scale(1.08);
+        filter: blur(6px);
         visibility: hidden;
     }
 }
@@ -114,18 +113,10 @@ body.is-loaded > *:not(.preloader) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
-.preloader-logo {
-    width: 80px;
-    height: 80px;
-    color: var(--primary, #00C896);
-    animation: preloaderPulse 1.8s ease-in-out infinite, preloaderSpin 3s linear infinite;
-    will-change: transform;
-}
-
-/* Preloader exit: logo shrinks before page fades */
+/* Preloader exit: content shrinks before page fades */
 .preloader.fade-out .preloader-inner {
     animation: preloaderContentExit 0.5s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
@@ -137,26 +128,79 @@ body.is-loaded > *:not(.preloader) {
     }
 }
 
-.preloader-logo svg {
+/* Circle container */
+.preloader-circle {
+    position: relative;
+    width: 140px;
+    height: 140px;
+}
+
+.preloader-circle svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.preloader-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.06);
+    stroke-width: 4;
+}
+
+.preloader-circle-fill {
+    fill: none;
+    stroke: url(#preloaderGradient);
+    stroke: var(--primary, #00C896);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 339.292;
+    stroke-dashoffset: 339.292;
+    transition: stroke-dashoffset 0.15s ease-out;
+    filter: drop-shadow(0 0 8px rgba(0, 200, 150, 0.4));
+}
+
+/* Logo inside the circle */
+.preloader-logo-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    color: var(--primary, #00C896);
+    animation: preloaderLogoPulse 2s ease-in-out infinite;
+}
+
+.preloader-logo-center svg {
     width: 100%;
     height: 100%;
 }
 
-.preloader-bar {
-    width: 180px;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
-    overflow: hidden;
+@keyframes preloaderLogoPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
 }
 
-.preloader-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary, #00C896), var(--primary-light, #00F5B5));
-    border-radius: 4px;
-    animation: preloaderProgress 0.35s ease-out forwards;
-    box-shadow: 0 0 12px rgba(0, 200, 150, 0.5);
+/* Rotating glow behind the circle */
+.preloader-circle::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        rgba(0, 200, 150, 0.15) 25%,
+        transparent 50%,
+        rgba(0, 200, 150, 0.08) 75%,
+        transparent 100%
+    );
+    animation: preloaderGlow 3s linear infinite;
+}
+
+@keyframes preloaderGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .preloader-text {
@@ -166,23 +210,16 @@ body.is-loaded > *:not(.preloader) {
     letter-spacing: 3px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.4);
-    animation: preloaderTextFade 1.8s ease-in-out infinite alternate;
+    animation: preloaderTextFade 2s ease-in-out infinite alternate;
 }
 
-@keyframes preloaderSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes preloaderPulse {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.15) rotate(180deg); }
-}
-
-@keyframes preloaderProgress {
-    0% { width: 0%; }
-    50% { width: 60%; }
-    100% { width: 100%; }
+.preloader-percent {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--primary, #00C896);
+    opacity: 0.7;
 }
 
 @keyframes preloaderTextFade {
@@ -2728,6 +2765,101 @@ nav.scrolled {
 }
 
 /* ==========================================
+   SIGNATURE OVERLAY (scroll to top)
+   ========================================== */
+.signature-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 14, 19, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    pointer-events: none;
+}
+
+.signature-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.signature-overlay.fade-out {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.3s, visibility 0.6s ease 0.3s;
+}
+
+.signature-svg {
+    width: min(80vw, 500px);
+    height: auto;
+    color: var(--primary, #00C896);
+    filter: drop-shadow(0 0 20px rgba(0, 200, 150, 0.3));
+}
+
+/* Handwriting draw animation */
+.signature-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+
+.signature-underline {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+}
+
+.signature-overlay.active .signature-path {
+    animation: signatureDraw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.signature-overlay.active .signature-path:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.signature-overlay.active .signature-path:nth-child(3) {
+    animation-delay: 0.7s;
+}
+
+.signature-overlay.active .signature-path:nth-child(4) {
+    animation-delay: 1.0s;
+}
+
+.signature-overlay.active .signature-underline {
+    animation: signatureDraw 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: 1.6s;
+}
+
+@keyframes signatureDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Glow pulse after signature is drawn */
+.signature-overlay.active .signature-svg {
+    animation: signatureGlow 2s ease-in-out 2s 1;
+}
+
+@keyframes signatureGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(0, 200, 150, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 40px rgba(0, 200, 150, 0.6));
+    }
+}
+
+@media (max-width: 768px) {
+    .signature-svg {
+        width: 90vw;
+    }
+}
+
+/* ==========================================
    NOTIFICATION
    ========================================== */
 .notification {
@@ -2746,16 +2878,16 @@ nav.scrolled {
    ========================================== */
 @keyframes float {
     0%, 100% {
-        transform: translate(0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
     }
     25% {
-        transform: translate(30px, -40px) scale(1.05);
+        transform: translate3d(30px, -40px, 0) scale(1.05);
     }
     50% {
-        transform: translate(-20px, -80px) scale(0.95);
+        transform: translate3d(-20px, -80px, 0) scale(0.95);
     }
     75% {
-        transform: translate(40px, -40px) scale(1.02);
+        transform: translate3d(40px, -40px, 0) scale(1.02);
     }
 }
 
@@ -3088,24 +3220,47 @@ a:focus-visible {
         grid-template-columns: 1fr 1fr;
     }
 
-    .testimonials-slider {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 1rem;
-        padding-bottom: 1rem;
+    .testimonials {
+        padding: 60px 1rem;
     }
 
-    .testimonials-slider::-webkit-scrollbar {
-        display: none;
+    .testimonials-slider {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .testimonial-card {
-        scroll-snap-align: start;
-        min-width: 85vw;
-        flex-shrink: 0;
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .testimonial-text {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        padding-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .testimonial-quote {
+        font-size: 3rem;
+        top: 0.5rem;
+        left: 1rem;
+    }
+
+    .author-avatar {
+        width: 44px;
+        height: 44px;
+        font-size: 0.95rem;
+        border-radius: 12px;
+    }
+
+    .author-info h4 {
+        font-size: 0.9rem;
+    }
+
+    .author-info p {
+        font-size: 0.8rem;
     }
 
     .section-label::before,
@@ -3201,9 +3356,12 @@ a:focus-visible {
         grid-template-columns: 1fr;
     }
 
-    .service-card,
-    .testimonial-card {
+    .service-card {
         padding: 2rem;
+    }
+
+    .testimonial-card {
+        padding: 1.25rem;
     }
 
     /* Contact mobile small */
@@ -3274,6 +3432,74 @@ a:focus-visible {
         padding: 0.9rem 1.5rem;
         font-size: 0.9rem;
         border-radius: 12px;
+    }
+}
+
+/* ==========================================
+   MOBILE PERFORMANCE: disable heavy animations
+   ========================================== */
+@media (max-width: 768px) {
+    /* Kill floating shapes & glow - saves GPU + battery */
+    .floating-shape,
+    .hero-glow {
+        animation: none !important;
+        opacity: 0.04;
+    }
+
+    .hero-glow {
+        filter: blur(60px);
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Simplify founder card - remove ring rotation & particles */
+    .founder-ring {
+        animation: none !important;
+        border-color: rgba(0, 200, 150, 0.15);
+    }
+
+    .founder-ring::before {
+        animation: none !important;
+    }
+
+    .founder-ring-glow {
+        animation: none !important;
+        opacity: 0.3;
+    }
+
+    .founder-particles span {
+        animation: none !important;
+        display: none;
+    }
+
+    /* Simplify grid overlay on mobile */
+    .grid-overlay {
+        display: none;
+    }
+
+    /* Reduce preloader glow rotation */
+    .preloader-circle::before {
+        animation-duration: 6s;
+    }
+
+    /* Disable will-change on mobile to free GPU memory */
+    .hero-glow,
+    .floating-shape,
+    .founder-ring {
+        will-change: auto;
+        contain: layout;
+    }
+
+    /* Slower marquee to reduce repaints */
+    .clients-track {
+        animation-duration: 35s;
+    }
+
+    /* Reduce badge-dot pulse */
+    .badge-dot {
+        animation: none !important;
+        opacity: 1;
+        box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.2);
     }
 }
 
@@ -3434,14 +3660,14 @@ a:focus-visible {
 .clients-marquee {
     max-width: 100%;
     overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 
 .clients-track {
     display: flex;
-    gap: 3rem;
-    animation: marqueeScroll 25s linear infinite;
+    gap: 1.5rem;
+    animation: marqueeScroll 30s linear infinite;
     width: max-content;
 }
 
@@ -3456,35 +3682,149 @@ a:focus-visible {
 
 .client-logo {
     flex-shrink: 0;
-    padding: 1.25rem 2.5rem;
+    padding: 1.25rem 1.75rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 14px;
     transition: all 0.4s var(--ease);
-    min-width: 180px;
+    min-width: 200px;
 }
 
 .client-logo:hover {
     border-color: var(--border-hover);
     background: var(--surface-hover);
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 200, 150, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 200, 150, 0.12);
+}
+
+.client-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, rgba(0, 200, 150, 0.1), rgba(0, 200, 150, 0.05));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    flex-shrink: 0;
+    transition: all 0.3s var(--ease);
+}
+
+.client-logo:hover .client-icon {
+    background: linear-gradient(135deg, rgba(0, 200, 150, 0.2), rgba(0, 200, 150, 0.1));
+    transform: scale(1.05);
+}
+
+.client-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .client-name {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--text-light);
-    letter-spacing: 0.02em;
+    color: var(--secondary);
+    letter-spacing: 0.01em;
     white-space: nowrap;
     transition: color 0.3s var(--ease);
 }
 
+.client-type {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-light);
+    white-space: nowrap;
+    opacity: 0.7;
+    transition: opacity 0.3s var(--ease);
+}
+
 .client-logo:hover .client-name {
     color: var(--primary);
+}
+
+.client-logo:hover .client-type {
+    opacity: 1;
+}
+
+/* Clients count banner */
+.clients-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: var(--container);
+    margin: 2.5rem auto 0;
+    padding: 1.25rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 200, 150, 0.08), rgba(0, 200, 150, 0.03));
+    border: 1px solid rgba(0, 200, 150, 0.15);
+    border-radius: 16px;
+}
+
+.clients-count-number {
+    font-size: 1.75rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.clients-count-text {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .clients-section {
+        padding: 50px 1rem 40px;
+    }
+
+    .clients-track {
+        gap: 1rem;
+    }
+
+    .client-logo {
+        padding: 1rem 1.25rem;
+        min-width: 170px;
+        gap: 10px;
+    }
+
+    .client-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .client-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .client-name {
+        font-size: 0.9rem;
+    }
+
+    .clients-count {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+        padding: 1rem 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .clients-count-number {
+        font-size: 1.5rem;
+    }
+
+    .clients-count-text {
+        font-size: 0.85rem;
+    }
 }
 
 /* ==========================================
@@ -3775,7 +4115,8 @@ a:focus-visible {
         scroll-behavior: auto !important;
     }
 
-    .preloader-logo,
+    .preloader-logo-center,
+    .preloader-circle::before,
     .founder-ring,
     .founder-ring::before,
     .founder-ring-glow,
@@ -3787,9 +4128,9 @@ a:focus-visible {
         animation: none !important;
     }
 
-    .preloader-bar-fill {
-        width: 100% !important;
-        animation: none !important;
+    .preloader-circle-fill {
+        stroke-dashoffset: 0 !important;
+        transition: none !important;
     }
 }
 

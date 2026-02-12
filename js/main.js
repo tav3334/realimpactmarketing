@@ -3,7 +3,7 @@
 // ==========================================
 
 // ==========================================
-// PRELOADER & PAGE REVEAL
+// PRELOADER & PAGE REVEAL (2.5s circular loader)
 // ==========================================
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
@@ -14,20 +14,47 @@ window.addEventListener('load', () => {
         return;
     }
 
-    // Exit preloader quickly (reduced from 1200ms to 400ms)
-    setTimeout(() => {
-        preloader.classList.add('fade-out');
+    const circleFill = preloader.querySelector('.preloader-circle-fill');
+    const percentEl = document.getElementById('preloaderPercent');
+    const totalLength = 339.292; // 2 * PI * 54
+    const duration = 2500; // 2.5 seconds
+    const startTime = performance.now();
 
-        // After preloader animation ends, reveal page content
-        preloader.addEventListener('animationend', () => {
-            document.body.classList.remove('is-loading');
-            document.body.classList.add('is-loaded');
-            preloader.remove();
+    function animateLoader(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
 
-            // Initialize AOS after page is revealed
-            setTimeout(initAOS, 50);
-        }, { once: true });
-    }, 400);
+        // Ease-out cubic for smooth feel
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        // Update circle stroke
+        if (circleFill) {
+            circleFill.style.strokeDashoffset = totalLength * (1 - eased);
+        }
+
+        // Update percentage text
+        if (percentEl) {
+            percentEl.textContent = Math.round(eased * 100) + '%';
+        }
+
+        if (progress < 1) {
+            requestAnimationFrame(animateLoader);
+        } else {
+            // Loading complete - fade out
+            preloader.classList.add('fade-out');
+
+            preloader.addEventListener('animationend', () => {
+                document.body.classList.remove('is-loading');
+                document.body.classList.add('is-loaded');
+                preloader.remove();
+
+                // Initialize AOS after page is revealed
+                setTimeout(initAOS, 50);
+            }, { once: true });
+        }
+    }
+
+    requestAnimationFrame(animateLoader);
 });
 
 // Initialize AOS (Animate On Scroll)
@@ -316,18 +343,60 @@ function showNotification(message, type = 'success') {
 }
 
 // ==========================================
-// BACK TO TOP BUTTON
+// BACK TO TOP BUTTON + SIGNATURE
 // ==========================================
 const backToTopBtn = document.getElementById('backToTop');
+const signatureOverlay = document.getElementById('signatureOverlay');
 
 function handleBackToTop() {
     if (!backToTopBtn) return;
     backToTopBtn.classList.toggle('visible', window.scrollY > 400);
 }
 
+function showSignature() {
+    if (!signatureOverlay) return;
+
+    // Reset paths for re-animation
+    signatureOverlay.querySelectorAll('.signature-path, .signature-underline').forEach(p => {
+        p.style.animation = 'none';
+        p.offsetHeight; // force reflow
+        p.style.animation = '';
+    });
+
+    signatureOverlay.classList.remove('fade-out');
+    signatureOverlay.classList.add('active');
+
+    // Auto-hide after signature finishes drawing
+    setTimeout(() => {
+        signatureOverlay.classList.add('fade-out');
+        setTimeout(() => {
+            signatureOverlay.classList.remove('active', 'fade-out');
+        }, 900);
+    }, 3200);
+}
+
 if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Show signature when scroll reaches top
+        const onScroll = () => {
+            if (window.scrollY < 10) {
+                window.removeEventListener('scroll', onScroll);
+                showSignature();
+            }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+    });
+}
+
+// Close signature on click
+if (signatureOverlay) {
+    signatureOverlay.addEventListener('click', () => {
+        signatureOverlay.classList.add('fade-out');
+        setTimeout(() => {
+            signatureOverlay.classList.remove('active', 'fade-out');
+        }, 600);
     });
 }
 
