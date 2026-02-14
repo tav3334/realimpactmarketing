@@ -93,55 +93,55 @@ const servicesData = [
 // Portfolio Data
 const portfolioData = [
     {
-        image: 'assets/images/E-commerce Fashion.png',
+        image: 'assets/images/E-commerce Fashion.webp',
         title: 'Ghost Food - Application Web',
         category: 'Développement Web',
         description: 'Plateforme de commande en ligne pour Ghost Food, dark kitchen multi-restaurants à Agadir'
     },
     {
-        image: 'assets/images/pr1.PNG',
+        image: 'assets/images/pr1.webp',
         title: 'Fresh Kitchen - Contenu Visuel',
         category: 'Marketing Digital',
         description: 'Création de contenu visuel et campagne social media pour Fresh Kitchen Agadir'
     },
     {
-        image: 'assets/images/pr4.jpg',
+        image: 'assets/images/pr4.webp',
         title: 'Fresh Kitchen - Design Culinaire',
         category: 'Design & Branding',
         description: 'Photographie culinaire et design de publications pour Fresh Kitchen, restaurant bio & organic'
     },
     {
-        image: 'assets/images/pr5.jpg',
+        image: 'assets/images/pr5.webp',
         title: 'Fresh Kitchen - Branding',
         category: 'Design & Branding',
         description: 'Identité visuelle et shooting photo professionnel pour les bowls healthy de Fresh Kitchen'
     },
     {
-        image: 'assets/images/pr6.jpg',
+        image: 'assets/images/pr6.webp',
         title: 'Fresh Kitchen - Social Media',
         category: 'Marketing Digital',
         description: 'Stratégie de contenu et photographie food pour les réseaux sociaux de Fresh Kitchen'
     },
     {
-        image: 'assets/images/pr2.jpg',
+        image: 'assets/images/pr2.webp',
         title: 'Saykouk - Campagne Rooftop',
         category: 'Marketing Digital',
         description: 'Campagne promotionnelle pour Saykouk, nouveau concept rooftop à Agadir'
     },
     {
-        image: 'assets/images/couscous-friday.jpg',
+        image: 'assets/images/couscous-friday.webp',
         title: 'Saykouk - Couscous Friday',
         category: 'Audiovisuel',
         description: 'Shooting photo culinaire traditionnel marocain pour la campagne Couscous Friday de Saykouk'
     },
     {
-        image: 'assets/images/xx.PNG',
+        image: 'assets/images/xx.webp',
         title: 'DaVinci Studios - Shooting Mode',
         category: 'Audiovisuel',
         description: 'Séance photo professionnelle et direction artistique pour DaVinci Studios'
     },
     {
-        image: 'assets/images/davinci-studios.jpeg',
+        image: 'assets/images/davinci-studios.webp',
         title: 'DaVinci Studios - Agriculture',
         category: 'Audiovisuel',
         description: 'Reportage photo pour un projet agricole, mise en valeur du terroir marocain'
@@ -225,32 +225,32 @@ const instagramAccounts = [
 // Instagram Posts Preview Data
 const instagramPosts = [
     {
-        image: 'assets/images/insta-1.jpeg',
+        image: 'assets/images/insta-1.webp',
         likes: '124',
         caption: 'Stratégie digitale'
     },
     {
-        image: 'assets/images/insta-2.jpeg',
+        image: 'assets/images/insta-2.webp',
         likes: '98',
         caption: 'Design créatif'
     },
     {
-        image: 'assets/images/insta-3.jpeg',
+        image: 'assets/images/insta-3.webp',
         likes: '156',
         caption: 'Analytics & Data'
     },
     {
-        image: 'assets/images/insta-4.jpeg',
+        image: 'assets/images/insta-4.webp',
         likes: '87',
         caption: 'Brainstorming'
     },
     {
-        image: 'assets/images/insta-5.jpg',
+        image: 'assets/images/insta-5.webp',
         likes: '203',
         caption: 'Résultats clients'
     },
     {
-        image: 'assets/images/insta-6.jpg',
+        image: 'assets/images/insta-6.webp',
         likes: '142',
         caption: 'Web development'
     }
